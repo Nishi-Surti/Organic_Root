@@ -37,7 +37,9 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let order of filteredOrders">
+        <tr *ngFor="let order of paginatedOrders" 
+            (click)="toggleOrderDetails(order.id)"
+            [class.expanded]="expandedOrderId === order.id">
           <td data-label="Order ID">{{order.id}}</td>
 
           <td class="product" data-label="Product">
@@ -69,5 +71,16 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- PAGINATION CONTROLS -->
+  <div class="pagination-controls" *ngIf="totalPages > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+    <button *ngFor="let p of pageNumbers" 
+            [class.active]="p === currentPage" 
+            (click)="setPage(p)">
+      {{p}}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
 </div>

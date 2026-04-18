@@ -27,6 +27,10 @@ export class MyProduct implements OnInit {
   editProductData:any={};
   deleteId:any;
 
+  // Pagination vars
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+
   categories = ['All','Vegetables','Fruits','Green Vegetables','Root Vegetables'];
 
   ngOnInit() {
@@ -54,12 +58,40 @@ export class MyProduct implements OnInit {
 
   filterCategory(cat:string){
     this.selectedCategory = cat;
+    this.currentPage = 1; // Reset to page 1 on filter
 
     if(cat === 'All'){
       this.filteredProducts = this.products;
     }else{
       this.filteredProducts = this.products.filter(p => p.category === cat);
     }
+  }
+
+  // Pagination Logic
+  get paginatedProducts() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+  }
+
+  get pageNumbers() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.setPage(this.currentPage + 1);
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) this.setPage(this.currentPage - 1);
   }
 
  confirmDelete(){

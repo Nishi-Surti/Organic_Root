@@ -6,155 +6,187 @@ import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-consumer-order',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './consumer-order.html',
   styleUrl: './consumer-order.css',
 })
 export class ConsumerOrder {
+  orders: any[] = [];
+  expandedOrder: any = null;
 
-  orders:any[] = [];
-expandedOrder:any = null;
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
 
-constructor(private order: ViewOrder,private cd: ChangeDetectorRef ){}
-
-ngOnInit(){
-
-const cid = localStorage.getItem("consumerId");
-
-this.order.getConsumerOrders(cid)
-.subscribe((res:any)=>{
-
-console.log("API DATA:", res);
-this.orders = res;
-this.cd.detectChanges();
-});
-
-}
-
-/* toggle details */
-toggle(order:any){
-this.expandedOrder = this.expandedOrder === order ? null : order;
-}
-
-selectedOrderIndex: number | null = null;
-
-toggleOrder(index: number){
-  if(this.selectedOrderIndex === index){
-    this.selectedOrderIndex = null;
-  } else {
-    this.selectedOrderIndex = index;
+  get paginatedOrders() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.orders.slice(startIndex, startIndex + this.itemsPerPage);
   }
-}
 
-// status text
-  getStatusText(status:string)
-  {
+  get totalPages() {
+    return Math.ceil(this.orders.length / this.itemsPerPage);
+  }
 
-    switch(status){
-      case "Confirmed": return "Placed";
-      case "Packed": return "Packed";
-      case "Shipped": return "Shipped";
-      case "Delivered": return "Delivered";
-      case "Cancelled": return "Cancelled";
-      default: return "Pending";
+  get pageNumbers() {
+    return Array(this.totalPages)
+      .fill(0)
+      .map((x, i) => i + 1);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.selectedOrderIndex = null;
     }
-
   }
 
-  getStepNumber(status:string)
-  {
-      switch (status) 
-      {
-        case "Confirmed": return 1; // Placed
-        case "Packed": return 2;
-        case "Shipped": return 3;
-        case "Delivered": return 4;
-        default: return 0;
-      }
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.selectedOrderIndex = null;
+    }
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    this.selectedOrderIndex = null;
+  }
+
+  constructor(
+    private order: ViewOrder,
+    private cd: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit() {
+    const cid = localStorage.getItem('consumerId');
+
+    this.order.getConsumerOrders(cid).subscribe((res: any) => {
+      console.log('API DATA:', res);
+      this.orders = res;
+      this.cd.detectChanges();
+    });
+  }
+
+  /* toggle details */
+  toggle(order: any) {
+    this.expandedOrder = this.expandedOrder === order ? null : order;
+  }
+
+  selectedOrderIndex: number | null = null;
+
+  toggleOrder(index: number) {
+    if (this.selectedOrderIndex === index) {
+      this.selectedOrderIndex = null;
+    } else {
+      this.selectedOrderIndex = index;
+    }
+  }
+
+  // status text
+  getStatusText(status: string) {
+    switch (status) {
+      case 'Confirmed':
+        return 'Placed';
+      case 'Packed':
+        return 'Packed';
+      case 'Shipped':
+        return 'Shipped';
+      case 'Delivered':
+        return 'Delivered';
+      case 'Cancelled':
+        return 'Cancelled';
+      default:
+        return 'Pending';
+    }
+  }
+
+  getStepNumber(status: string) {
+    switch (status) {
+      case 'Confirmed':
+        return 1; // Placed
+      case 'Packed':
+        return 2;
+      case 'Shipped':
+        return 3;
+      case 'Delivered':
+        return 4;
+      default:
+        return 0;
+    }
   }
 
   showCancelModal: boolean = false;
   selectedOrderId: number | null = null;
 
-  cancelOrder(orderId: number){
+  cancelOrder(orderId: number) {
+    const confirmCancel = confirm('Are you sure you want to cancel this order?');
+    if (!confirmCancel) return;
 
-  const confirmCancel = confirm("Are you sure you want to cancel this order?");
-  if(!confirmCancel) return;
+    this.order.cancelOrder(orderId).subscribe({
+      next: (res: any) => {
+        alert('Order Cancelled');
 
-  this.order.cancelOrder(orderId).subscribe({
-    next: (res:any) => {
-      alert("Order Cancelled");
+        // ✅ UI update instantly
+        const order = this.orders.find((o) => o.order_id === orderId);
+        if (order) {
+          order.orderStatus = 'Cancelled';
+        }
+      },
+      error: (err) => {
+        console.log('Cancel Error:', err);
+      },
+    });
+  }
 
-      // ✅ UI update instantly
-      const order = this.orders.find(o => o.order_id === orderId);
-      if(order){
-        order.orderStatus = "Cancelled";
-      }
-    },
-    error: (err) => {
-      console.log("Cancel Error:", err);
-    }
-  });
+  openCancelModal(orderId: number) {
+    this.selectedOrderId = orderId;
+    this.showCancelModal = true;
+  }
 
-}
+  closeModal() {
+    this.showCancelModal = false;
+    this.selectedOrderId = null;
+  }
 
-openCancelModal(orderId: number){
-  this.selectedOrderId = orderId;
-  this.showCancelModal = true;
-}
+  isDeleting = false;
 
-closeModal(){
-  this.showCancelModal = false;
-  this.selectedOrderId = null;
-}
+  confirmCancel() {
+    if (this.selectedOrderId === null || this.isDeleting) return;
 
-isDeleting = false;
+    this.isDeleting = true;
 
-confirmCancel(){
+    this.order.deleteOrder(this.selectedOrderId).subscribe({
+      next: () => {
+        this.orders = this.orders.filter((o) => o.order_id !== this.selectedOrderId);
 
-  if(this.selectedOrderId === null || this.isDeleting) return;
+        this.closeModal();
+        this.isDeleting = false;
+      },
+      error: () => {
+        this.isDeleting = false;
+      },
+    });
+  }
 
-  this.isDeleting = true;
+  showBillModal = false;
+  selectedOrder: any = null;
 
-  this.order.deleteOrder(this.selectedOrderId).subscribe({
-    next: () => {
+  openBillModal(order: any) {
+    this.selectedOrder = order;
+    this.showBillModal = true;
+  }
 
-      this.orders = this.orders.filter(
-        o => o.order_id !== this.selectedOrderId
-      );
+  closeBillModal() {
+    this.showBillModal = false;
+  }
 
-      this.closeModal();
-      this.isDeleting = false;
-    },
-    error: () => {
-      this.isDeleting = false;
-    }
-  });
+  printBill() {
+    const content = document.getElementById('billContent')?.innerHTML;
 
-}
+    const printWindow = window.open('', '', 'width=900,height=700');
 
-showBillModal = false;
-selectedOrder: any = null;
-
-openBillModal(order: any) {
-  this.selectedOrder = order;
-  this.showBillModal = true;
-}
-
-closeBillModal() {
-  this.showBillModal = false;
-}
-
-printBill() 
-{
-  const content = document.getElementById('billContent')?.innerHTML;
-
-  const printWindow = window.open('', '', 'width=900,height=700');
-
-  if (printWindow) 
-  {
-    printWindow.document.write(`
+    if (printWindow) {
+      printWindow.document.write(`
 <html>
 <head>
 <title>Invoice</title>
@@ -225,8 +257,8 @@ td {
 </html>
 `);
 
-    printWindow.document.close();
-    printWindow.print();
+      printWindow.document.close();
+      printWindow.print();
+    }
   }
-}
 }

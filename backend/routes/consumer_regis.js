@@ -38,6 +38,30 @@ router.post('/register-consumer',async( req , res) =>{
         console.log("save error: ",err);
         res.status(500).json({error: err});
     }
-})
+});
+
+router.put('/update-consumer-password', async (req, res) => {
+    try {
+        const { id, currentPassword, newPassword } = req.body;
+        
+        const consumer = await Consumer_Regis.findOne({ c_id: Number(id) });
+        
+        if (!consumer) {
+            return res.status(404).json({ message: "Consumer not found" });
+        }
+        
+        if (consumer.password !== currentPassword) {
+            return res.status(401).json({ message: "Incorrect current password" });
+        }
+        
+        consumer.password = newPassword;
+        await consumer.save();
+        
+        res.status(200).json({ message: "Password updated successfully" });
+    } catch (err) {
+        console.log("password update error: ", err);
+        res.status(500).json({ error: err });
+    }
+});
 
 module.exports = router;

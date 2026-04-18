@@ -57,9 +57,13 @@ gap:30px;
 
 /* CARD */
 
-.rt-veg-info{
-  padding:15px;
-  text-align:center;
+.rt-veg-card{
+background:rgba(1, 255, 90, 0.078);
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transition:0.3s;
+cursor:pointer;
 }
 
 .rt-veg-card:hover{
@@ -87,12 +91,12 @@ transform:scale(1.1);
 
 /* INFO */
 
-.rt-veg-card{
+.rt-veg-info{
 padding:15px;
 text-align:center;
 }
 
-.rt-veg-card h3{
+.rt-veg-info h3{
 margin:5px 0;
 font-size:20px;
 }

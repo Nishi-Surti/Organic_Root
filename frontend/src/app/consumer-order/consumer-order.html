@@ -1,7 +1,7 @@
     <button class="back-btn" onclick="history.back()">
       ⬅ Back
     </button>
-    <div class="order-card" *ngFor="let order of orders; let i = index">
+    <div class="order-card" *ngFor="let order of paginatedOrders; let i = index">
   <!-- ✅ ALWAYS VISIBLE TOP CARD -->
   <div class="order-summary-box" (click)="toggleOrder(i)">
 
@@ -16,8 +16,10 @@
     
 
     <div class="status">
-      {{ getStatusText(order.orderStatus) }}
-      <br>
+      <span class="status-badge" [ngClass]="order.orderStatus.toLowerCase()">
+        {{ getStatusText(order.orderStatus) }}
+      </span>
+      <div class="summary-actions">
 
       <!-- Cancel Button -->
       <button 
@@ -32,6 +34,7 @@
       (click)="openBillModal(order); $event.stopPropagation()">
       View Bill
     </button>
+    </div>
     </div>
 
   </div>
@@ -104,6 +107,17 @@
     </div>
   </div>
 
+</div>
+
+<!-- PAGINATION CONTROLS -->
+<div class="pagination-controls" *ngIf="totalPages > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+  <button *ngFor="let p of pageNumbers" 
+          [class.active]="p === currentPage" 
+          (click)="setPage(p)">
+    {{p}}
+  </button>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>
 
 <!-- BILL MODAL -->

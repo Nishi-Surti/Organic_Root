@@ -23,7 +23,7 @@
   <!-- Product Cards -->
   <div class="card-container">
 
-    <div class="product-card" *ngFor="let product of filteredProducts">
+    <div class="product-card" *ngFor="let product of paginatedProducts">
 
       <img [src]="'http://localhost:3000'+ product.pimg" />
 
@@ -42,6 +42,17 @@
 
     </div>
 
+  </div>
+
+  <!-- PAGINATION CONTROLS -->
+  <div class="pagination-controls" *ngIf="totalPages > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+    <button *ngFor="let p of pageNumbers" 
+            [class.active]="p === currentPage" 
+            (click)="setPage(p)">
+      {{p}}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
 
 </div>

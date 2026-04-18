@@ -30,6 +30,7 @@
 
         <button class="qty-btn" (click)="increase(item)">+</button>
       </div>
+      <p *ngIf="item.showLimitedStockError" style="color: red; font-size: 13px; font-weight: bold; margin: 5px 0 0 0;">Limited stock</p>
 
       <p class="item-total">
         Total: ₹{{item.price * item.qty}}

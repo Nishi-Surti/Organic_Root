@@ -17,6 +17,11 @@ export class FarmerOrderTrack {
 
   orders: any[] = [];
   filteredOrders: any[] = [];
+  expandedOrderId: number | null = null;
+
+  // Pagination vars
+  currentPage: number = 1;
+  itemsPerPage: number = 2;
 
   constructor(
     private http: HttpClient,
@@ -47,26 +52,63 @@ export class FarmerOrderTrack {
   }
 
   searchOrders() {
+    this.currentPage = 1; // Reset to first page
     this.filteredOrders = this.orders.filter(
       (order) =>
         order.product.toLowerCase().includes(this.searchText.toLowerCase()) ||
         order.customer.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        order.id.toLowerCase().includes(this.searchText.toLowerCase()),
+        order.id.toString().toLowerCase().includes(this.searchText.toLowerCase()),
     );
   }
 
   applyFilter() 
   {
+    this.currentPage = 1; // Reset to first page
     this.filteredOrders = this.orders.filter((order) => {
       const searchMatch =
         order.product.toLowerCase().includes(this.searchText.toLowerCase()) ||
         order.customer.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        order.id.toLowerCase().includes(this.searchText.toLowerCase());
+        order.id.toString().toLowerCase().includes(this.searchText.toLowerCase());
 
       const statusMatch = this.statusFilter === '' || order.status === this.statusFilter;
 
       return searchMatch && statusMatch;
     });
+  }
+
+  // Pagination Logic
+  get paginatedOrders() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredOrders.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredOrders.length / this.itemsPerPage);
+  }
+
+  get pageNumbers() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.setPage(this.currentPage + 1);
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) this.setPage(this.currentPage - 1);
+  }
+
+  toggleOrderDetails(orderId: number) {
+    if (this.expandedOrderId === orderId) {
+      this.expandedOrderId = null; // Collapse if already open
+    } else {
+      this.expandedOrderId = orderId; // Expand
+    }
   }
 
   updateOrder(event: any, orderId: number) {

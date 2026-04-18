@@ -151,12 +151,18 @@ if (this.orderForm.invalid) {
 
   // ✅ QUANTITY CONTROL (PER PRODUCT)
   increase(item: any) {
-    item.qty += 1;
+    if (item.qty < item.quantity) {
+      item.qty += 1;
+      item.showLimitedStockError = false;
+    } else {
+      item.showLimitedStockError = true;
+    }
   }
 
   decrease(item: any) {
     if (item.qty > 1) {
       item.qty -= 1;
+      item.showLimitedStockError = false;
     }
   }
 

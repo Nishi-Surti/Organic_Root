@@ -32,14 +32,21 @@ export class Cart {
   }
 
   /* increase qty */ 
-  increase(item:any)
-  { item.qty += 1; }
+  increase(item:any) { 
+    if (item.qty < item.quantity) {
+      item.qty += 1; 
+      item.showLimitedStockError = false;
+    } else {
+      item.showLimitedStockError = true;
+    }
+  }
 
   /* decrease qty */
-  
-  decrease(item:any)
-  { if(item.qty > 1)
-    { item.qty -= 1; } 
+  decrease(item:any) { 
+    if(item.qty > 1) { 
+      item.qty -= 1; 
+      item.showLimitedStockError = false;
+    } 
   }
 
   buyNow(item:any){

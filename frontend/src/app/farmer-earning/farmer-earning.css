@@ -225,10 +225,10 @@ border-radius:10px;
     border-radius: 15px;
   }
 
-  /* GRID → 1 COLUMN */
+  /* GRID → 2 COLUMN FOR TABLET, 1 FOR MOBILE */
   .earnings-grid{
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
 
   .small-card{
@@ -263,21 +263,29 @@ border-radius:10px;
   }
 
   /* CHART */
-  .bars{
+  .bars {
     width: 100%;
-    justify-content: space-between;
-    height: 80px;
-    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    height: 140px; /* More height for scrollbar/labels */
+    gap: 12px;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .bar{
-    width: 20px;
-    border-radius: 8px;
+  .bar-box {
+    flex: 0 0 45px; /* Minimum width for each bar column */
   }
 
-  .bar-box span{
-    font-size: 14px;
+  .bar {
+    width: 15px;
   }
+
+  .bar-box span {
+    font-size: 12px;
+  }
+
 
 }
 
@@ -294,12 +302,23 @@ border-radius:10px;
     min-width: unset;
   }
 
-  .small-card h3{
-    font-size: 16px;
+  .small-card p{
+    font-size: 13px;
   }
 
-  .small-card p{
-    font-size: 14px;
+  .earnings-grid{
+    grid-template-columns: 1fr 1fr; /* Stay 2 columns if cards are small */
+    gap: 8px;
+  }
+
+  .bars {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+  }
+
+  .bar-box {
+    flex-shrink: 0;
   }
 
   .activity-header h3{
@@ -310,12 +329,17 @@ border-radius:10px;
     width: 16px;
   }
 
-  .bars{
-    height: 70px;
+  .bars {
+    height: 140px;
+    gap: 10px;
+  }
+
+  .bar-box {
+    flex: 0 0 40px;
   }
 
   .bar-box span{
-    font-size: 14px;
+    font-size: 11px;
   }
 
 

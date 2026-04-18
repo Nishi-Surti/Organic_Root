@@ -1,5 +1,5 @@
 .footer-modern {
-margin-top: auto;
+/* margin-top: auto; removed to stick to content */
   width: 100%;  
   margin-left: 0 !important;
 
@@ -191,7 +191,7 @@ margin-top: auto;
 
 @media (max-width: 480px) {
   .footer-modern {
-    margin-top: 50vh;
+    margin-top: 0; /* Removed 50vh gap */
     margin-left: 0;
     width: 100%;
     padding: 16px 10px 0;

@@ -14,7 +14,9 @@ export class CartPage {
     const exist = this.cartItems.find(p => p.product_id === product.product_id);
 
     if(exist){
-      exist.qty += 1;
+      if (exist.qty < exist.quantity) {
+        exist.qty += 1;
+      }
     }else{
       this.cartItems.push({...product, qty:1});
     }

@@ -1,65 +1,137 @@
 <div class="profile-page">
+  <button class="back-btn" onclick="history.back()">⬅ Back</button>
 
-  <button class="back-btn" onclick="history.back()">
-      ⬅ Back
-  </button>
-  
   <!-- HEADER -->
   <div class="profile-header">
     <div class="profile-left">
       <div class="avatar-circle">
-          {{ getInitials(consumer.name) }}
+        {{ getInitials(consumer.name) }}
       </div>
-      <div>
-        <h2>{{consumer.name}}</h2>
-        <p>{{consumer.mobile}}</p>
+      <div class="profile-title">
+        <h2>{{ consumer.name }}</h2>
+        <p>📞 {{ consumer.mobile }}</p>
       </div>
     </div>
 
-    <button class="edit-btn" (click)="toggleEdit()">
-      {{isEdit ? 'Save' : 'Edit Profile'}}
+    <button class="edit-btn" [class.save-mode]="isEdit" (click)="toggleEdit()">
+      <span *ngIf="!isEdit">✏️ Edit Profile</span>
+      <span *ngIf="isEdit">💾 Save Profile</span>
     </button>
   </div>
 
   <!-- MAIN CARD -->
-  <div class="profile-card">
-
+  <div class="profile-card" [class.editing]="isEdit">
     <div class="form-group">
-      <label>Full Name</label>
-      <input type="text" [(ngModel)]="consumer.name" [disabled]="!isEdit">
+      <label>👤 Full Name</label>
+      <input
+        type="text"
+        [(ngModel)]="consumer.name"
+        [disabled]="!isEdit"
+        [class.editable-input]="isEdit"
+      />
     </div>
 
-    <div class="form-group">
-      <label>Mobile</label>
-      <input type="text" [(ngModel)]="consumer.mobile" disabled>
-    </div>
+    <div class="row align-start">
+      <div class="form-group mobile-field">
+        <label>📞 Mobile Number</label>
+        <input type="text" [(ngModel)]="consumer.mobile" disabled class="disabled-input" />
+      </div>
 
-    <div class="form-group">
-      <label>Address</label>
-      <textarea [(ngModel)]="consumer.address" [disabled]="!isEdit"></textarea>
+      <div class="form-group address-field">
+        <label>🏠 Home Address</label>
+        <textarea
+          [(ngModel)]="consumer.address"
+          [disabled]="!isEdit"
+          [class.editable-input]="isEdit"
+          rows="2"
+        ></textarea>
+      </div>
     </div>
 
     <div class="row">
       <div class="form-group">
-        <label>City</label>
-        <input type="text" [(ngModel)]="consumer.city" [disabled]="!isEdit">
+        <label>🏙️ City</label>
+        <input
+          type="text"
+          [(ngModel)]="consumer.city"
+          [disabled]="!isEdit"
+          [class.editable-input]="isEdit"
+        />
       </div>
 
       <div class="form-group">
-        <label>Pincode</label>
-        <input type="text" [(ngModel)]="consumer.pincode" [disabled]="!isEdit">
+        <label>📍 Pincode</label>
+        <input
+          type="text"
+          [(ngModel)]="consumer.pincode"
+          [disabled]="!isEdit"
+          [class.editable-input]="isEdit"
+        />
       </div>
     </div>
-
   </div>
 
   <!-- EXTRA SECTION -->
   <div class="profile-extra">
+    <div class="extra-card" routerLink="/consumer/consumer-order">
+      <div class="icon-box">📦</div>
+      <div class="extra-info">
+        <h4>My Orders</h4>
+        <p>You have {{ totalOrders }} orders</p>
+      </div>
+      <!-- <div class="arrow">➔</div> -->
+    </div>
 
-    <div class="extra-card" routerLink="/consumer-order">
-      <h4>📦 Orders</h4>
-      <p>{{totalOrders}} Orders</p>
+    <div class="extra-card security-card" (click)="openPasswordModal()">
+      <div class="icon-box security-icon">🔒</div>
+      <div class="extra-info">
+        <h4>Security & Password</h4>
+        <p>Change your password and secure your account</p>
+      </div>
+      <!-- <div class="arrow security-arrow">➔</div> -->
     </div>
   </div>
+</div>
 
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" *ngIf="isPasswordModalOpen" (click)="closePasswordModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>🔒 Change Password</h3>
+      <button class="close-btn" (click)="closePasswordModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Current Password</label>
+        <div class="password-wrapper">
+          <input [type]="showCurrent ? 'text' : 'password'" [(ngModel)]="passwordData.currentPassword" placeholder="Enter current password">
+          <span class="eye-icon" (click)="showCurrent = !showCurrent">
+            <svg *ngIf="showCurrent" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <svg *ngIf="!showCurrent" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <div class="password-wrapper">
+          <input [type]="showNew ? 'text' : 'password'" [(ngModel)]="passwordData.newPassword" placeholder="Enter new password">
+          <span class="eye-icon" (click)="showNew = !showNew">
+            <svg *ngIf="showNew" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <svg *ngIf="!showNew" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Re-enter New Password</label>
+        <div class="password-wrapper">
+          <input [type]="showConfirm ? 'text' : 'password'" [(ngModel)]="passwordData.confirmPassword" placeholder="Re-enter new password">
+          <span class="eye-icon" (click)="showConfirm = !showConfirm">
+            <svg *ngIf="showConfirm" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <svg *ngIf="!showConfirm" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          </span>
+        </div>
+      </div>
+      <button class="update-btn" (click)="updatePassword()">Update Password</button>
+    </div>
+  </div>
 </div>

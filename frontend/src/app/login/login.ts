@@ -9,6 +9,7 @@ import { FarmerLogin } from '../services/farmer-login';
 import { ConsumerLogin } from '../services/consumer-login';
 import { AdminLogin } from '../services/admin-login';
 import { email } from '@angular/forms/signals';
+import { ToastrService } from 'ngx-toastr';
 // import { AddProduct } from '../add-product/add-product';
 
 
@@ -31,7 +32,8 @@ selectedRole: string = ''; // default role
     private router: Router,
     private farmerLogin: FarmerLogin,
     private consumerLogin: ConsumerLogin,
-    private auth: Auth
+    private auth: Auth,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -82,7 +84,7 @@ selectedRole: string = ''; // default role
   this.auth.loginAdmin(adminData);
 
   if(!this.loginForm.valid){
-    alert("Please fill valid details");
+    this.toastr.warning("Please fill valid details", "Warning");
     return;
   }
 
@@ -92,7 +94,7 @@ selectedRole: string = ''; // default role
       .subscribe({
         next:(res:any)=>{
           this.auth.loginAs('Farmer');
-          alert("Farmer Login Successfully ✅");
+          this.toastr.success("Farmer Login Successfully ✅", "Success");
 
           localStorage.setItem('token', 'userLoggedIn');
           localStorage.setItem("farmerId", res.farmer_login.f_id);
@@ -102,7 +104,7 @@ selectedRole: string = ''; // default role
           this.router.navigate(['/farmers']);
         },
         error:(err)=>{
-          alert("Invalid Farmer Credentials ❌");
+          this.toastr.error("Invalid Farmer Credentials ❌", "Error");
         }
       });
   }
@@ -113,7 +115,7 @@ selectedRole: string = ''; // default role
       .subscribe({
         next:(res:any)=>{
           this.auth.loginAs('Consumer');
-          alert("Consumer Login Successfully ✅");
+          this.toastr.success("Consumer Login Successfully ✅", "Success");
 
 
           localStorage.setItem('token', 'userLoggedIn');
@@ -123,7 +125,7 @@ selectedRole: string = ''; // default role
           this.router.navigate(['/consumer']);
         },
         error:(err)=>{
-          alert("Invalid Consumer Credentials ❌");
+          this.toastr.error("Invalid Consumer Credentials ❌", "Error");
         }
       });
   }
@@ -134,12 +136,12 @@ selectedRole: string = ''; // default role
       .subscribe({
         next:(res:any)=>{
           this.auth.loginAs('Admin');
-          alert("Admin Login Successfully ✅");
+          this.toastr.success("Admin Login Successfully ✅", "Success");
           localStorage.setItem('token', 'userLoggedIn');
           this.router.navigate(['/admin']);
         },
         error:(err)=>{
-          alert("Invalid Admin Credentials ❌");
+          this.toastr.error("Invalid Admin Credentials ❌", "Error");
         }
       });
   }
