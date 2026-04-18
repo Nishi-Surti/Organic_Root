@@ -1,0 +1,198 @@
+.admin-container {
+  padding: 30px;
+  background: #f4f6f9;
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h2 {
+   font-size: 30px;
+}
+
+.header input {
+  padding: 10px 15px;
+  width: 250px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: 0.3s;
+}
+
+.header input:focus {
+  border-color: #27ae60;
+}
+
+.table-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #27ae60;
+  color: white;
+  font-size: 18px;
+}
+
+th, td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+tbody tr {
+  transition: 0.3s;
+  border-bottom: 1px solid #27ae5f68;
+}
+
+tbody tr:hover {
+  background: #f2fdf6;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.badge {
+  background: #e8f8f0;
+  color: green;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.stock {
+  color: green;
+  font-weight: bold;
+}
+
+.out {
+  color: red;
+  font-weight: bold;
+}
+
+.delete {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete:hover {
+  background: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .header h2 {
+    font-size: 25px;
+    margin-left: 50px;
+  }
+
+  .header input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .table-wrapper {
+    padding: 12px;
+  }
+
+  table {
+    min-width: 700px;
+  }
+
+  thead {
+    font-size: 16px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .badge,
+  .delete {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 12px;
+  }
+
+  .header h2 {
+    font-size: 20px;
+  }
+
+  .header input {
+    padding: 9px 12px;
+  }
+
+  .table-wrapper {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .badge {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .delete {
+    padding: 6px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}

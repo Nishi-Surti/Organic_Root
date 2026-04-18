@@ -1,0 +1,324 @@
+.about-container{
+    color: #1b5220;
+}
+.about-hero {
+  height: 60vh;
+  border-radius: 20px;
+  margin: 20px 3%;
+  background: url('/assets/about.jpg') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-overlay {
+  background: rgba(0,0,0,0.65);
+  color: rgb(255, 255, 255);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-overlay h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.about-overlay p {
+  font-size: 25px;
+  max-width: 700px;
+}
+.mission-modern {
+  margin-top: 10px;
+  font-size: 20px;
+  display: flex;
+  gap: 30px;
+  margin: 10px 3%;
+}
+
+.mission-card {
+  flex: 1;
+  background: linear-gradient(135deg, #0f3d1e, #217126,#0f3d1e);
+  color:white;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+}
+/* SECTION */
+.products-modern {
+  margin: 20px 3%;
+  padding: 70px 5%;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #0f3d1e, #217126,#0f3d1e);
+  text-align: center;
+  color: #ffffff;
+}
+
+.products-modern h2 {
+  font-size: 38px;
+  margin-bottom: 50px;
+}
+
+/* GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+/* CARD */
+.product-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 35px 25px;
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.242);
+}
+
+/* Icon */
+.product-icon {
+   width: 70px;
+  height: 70px;
+  background: white;
+  color: #1b5e20;
+  border-radius: 50%;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+}
+
+/* Title */
+.product-card h3 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+/* Description */
+.product-card p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+/* Button */
+.product-card button,a {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  text-decoration: none;
+  color: rgb(18, 88, 13);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.product-card button,a:hover {
+  transform: scale(1.05);
+}
+
+.faq-modern-clean {
+  position: relative;
+  margin: 10px 3%;
+  padding: 60px 40px;
+  border-radius: 25px;
+  overflow: hidden;
+
+  background: url("/assets/FAQ.jpg") center/cover no-repeat;
+}
+
+/* Transparent overlay */
+.faq-modern-clean::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* transparency level */
+  border-radius: 15px;
+  z-index: 0;
+}
+
+/* Make content above overlay */
+.faq-modern-clean > * {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-modern-clean h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #ffffff;
+}
+
+/* FAQ Box */
+.faq-modern-clean details {
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transition: 0.3s ease;
+}
+
+/* Question */
+.faq-modern-clean summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faq-modern-clean summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Arrow */
+.arrow {
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when open */
+details[open] .arrow {
+  transform: rotate(180deg);
+}
+
+/* Answer */
+.faq-modern-clean p {
+  margin-top: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+}
+/* ================= MOBILE RESPONSIVE (PRO LEVEL) ================= */
+@media (max-width: 768px) {
+
+  body {
+  overflow-x: hidden;
+}
+  /* Container spacing */
+  .about-container {
+    padding: 0 10px;
+  }
+
+  /* HERO SECTION */
+  .about-hero {
+    height: 45vh;
+    margin: 10px;
+    border-radius: 15px;
+  }
+
+  .about-overlay h1 {
+    font-size: 26px;
+    padding: 0 10px;
+  }
+
+  .about-overlay p {
+    font-size: 15px;
+    padding: 0 15px;
+    line-height: 1.5;
+  }
+
+  /* MISSION SECTION */
+  .mission-modern {
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 10px;
+  }
+
+  .mission-card {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+ .products-modern {
+    padding: 30px 15px;
+    margin: 10px;
+    border-radius: 15px;
+  }
+
+  .products-modern h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  /* GRID */
+  .product-grid {
+    display: grid;
+    grid-template-columns:  repeat(2, minmax(150px, 1fr));   /* single column */
+    gap: 15px;
+  }
+
+  /* CARD */
+  .product-card {
+    padding: 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+  }
+
+  .product-card h3 {
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+
+  .product-card p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  /* ICON */
+  .product-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  /* BUTTON */
+  .product-card button,
+  .product-card a {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+
+  /* FAQ SECTION */
+  .faq-modern-clean {
+    padding: 10px 15px;
+    margin: 15px 10px;
+    border-radius: 15px;
+  }
+
+  .faq-modern-clean h2 {
+    font-size: 22px;
+  }
+
+  .faq-modern-clean summary {
+    font-size: 15px;
+  }
+
+  .faq-modern-clean p {
+    font-size: 14px;
+  }
+
+  /* BUTTON FIX */
+  .product-card button,
+  .product-card a {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+}

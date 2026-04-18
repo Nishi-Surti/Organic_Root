@@ -1,0 +1,120 @@
+<div class="product-wrapper">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-card">
+    <h2>Add Product</h2>
+
+    <div class="error-box" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
+    <!-- CATEGORY -->
+    <div class="input-group">
+      <label>📦 Category</label>
+      <select formControlName="category">
+        <option value="">Select Category</option>
+
+        <option *ngFor="let c of categories" [value]="c.category">
+          {{ c.category }}
+        </option>
+      </select>
+
+      <small class="error" *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid">
+    Category is required
+  </small>
+    </div>
+
+    <!-- PRODUCT -->
+    <div class="input-group">
+      <label>🧺 Product Name</label>
+      <input type="text" placeholder="Example: Tomato" formControlName="pname" />
+
+      <small class="error" *ngIf="productForm.get('pname')?.touched && productForm.get('pname')?.invalid">
+    Product name is required
+  </small>
+    </div>
+
+    <!-- PRICE -->
+    <div class="input-group">
+      <label>💰 Price</label>
+
+      <small class="error" *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid">
+  Price is required
+</small>
+
+      <div class="price-wrapper">
+        <input
+          type="text"
+          formControlName="price"
+          placeholder="Enter Price"
+          (input)="onlyNumber($event)"
+        />
+
+        <select formControlName="priceUnit">
+          <option value="kg">₹ / Kg</option>
+          <option value="quintal">₹ / Quintal</option>
+          <option value="dozen">₹ / Dozen</option>
+          <option value="piece">₹ / Piece</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="input-group">
+      <label>⚖ Quantity</label>
+
+      <small class="error" *ngIf="productForm.get('quantity')?.touched && productForm.get('quantity')?.invalid">
+  Quantity is required
+</small>
+
+      <div class="price-wrapper">
+        <input
+          type="text"
+          formControlName="quantity"
+          placeholder="Total Quantity"
+          (input)="onlyNumber($event)"
+        />
+
+        <select formControlName="quantityUnit">
+          <option value="kg">Kg</option>
+          <option value="quintal">Quintal</option>
+          <option value="piece">Piece</option>
+          <option value="dozen">Dozen</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ✅ REPORT-WASTE STYLE IMAGE INPUT -->
+    <div class="input-group">
+      <label>Choose Product Photo</label>
+    </div>
+
+    <label class="file-upload">
+      <input type="file" hidden accept="image/*" (change)="onImageSelect($event)" />
+
+      <div class="upload-content">
+        <!-- CAMERA ICON -->
+        <span>📷</span>
+
+        <!-- PLACEHOLDER / FILE NAME -->
+        <!-- <span class="file-text">
+      {{ fileName }}
+    </span> -->
+        <span class="file-text">
+          {{ fileName }}
+        </span>
+
+        <!-- 👁 EYE ICON RIGHT SIDE -->
+        <span class="eye" [class.disabled]="!imagePreview" (click)="togglePreview($event)">
+          👁
+        </span>
+        <small class="error" *ngIf="imageError">
+  Product image is required
+</small>
+      </div>
+    </label>
+
+    <!-- IMAGE PREVIEW -->
+    <img *ngIf="showPreview" [src]="imagePreview" class="preview-img" />
+
+    <button type="submit">Add Product</button>
+  </form>
+</div>

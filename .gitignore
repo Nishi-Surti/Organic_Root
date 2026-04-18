@@ -1,0 +1,80 @@
+# ======================
+# Node Modules
+# ======================
+node_modules/
+
+# ======================
+# Build / Dist folders
+# ======================
+dist/
+build/
+out/
+coverage/
+
+# ======================
+# Environment files (SECRET ⚠️)
+# ======================
+.env
+.env.local
+.env.development
+.env.production
+
+# ======================
+# Logs
+# ======================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# OS Files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# IDE / Editor
+# ======================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ======================
+# Angular specific
+# ======================
+.angular/
+.angular/cache/
+
+# ======================
+# TypeScript
+# ======================
+*.tsbuildinfo
+
+# ======================
+# Temporary files
+# ======================
+tmp/
+temp/
+
+
+# ======================
+# Database / uploads (if any)
+# ======================
+uploads/
+public/uploads/
+
+# ======================
+# Testing
+# ======================
+coverage/
+
+# ======================
+# Misc
+# ======================
+*.bak
+*.swp

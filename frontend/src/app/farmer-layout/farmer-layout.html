@@ -1,0 +1,63 @@
+<div class="admin-layout">
+<!-- HAMBURGER -->
+<div class="hamburger" (click)="toggleSidebar()">
+  ☰
+</div>
+
+ <div class="overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" [class.open]="isSidebarOpen">
+
+     <div class="logo">
+      <img src="/assets/logo.png" />
+    </div>
+   
+<span class="close" (click)="closeSidebar()">✕</span>
+    <h2 class="logo">👨‍🌾 {{farmerName}}</h2>
+    <ul>
+
+  <li>
+    <a [routerLink]="['/farmers/farmer-dashboard']" routerLinkActive="active" (click)="handleNavigation()">
+      📊 Dashboard
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/farmers/add-product']" routerLinkActive="active" (click)="handleNavigation()">
+        ➕ Add Product
+    </a>
+  </li>
+
+
+
+  <li>
+    <a [routerLink]="['/farmers/my-product']" routerLinkActive="active" (click)="handleNavigation()">
+      🛒 Manage Products
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/farmers/farmer-order-track']" routerLinkActive="active" (click)="handleNavigation()">
+      📦 Orders
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/farmers/farmer-earning']" routerLinkActive="active" (click)="handleNavigation()">
+        💰 Earnings
+    </a>
+  </li>
+
+</ul>
+
+    <button class="logout" (click)="logout()">Logout</button>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</div>
+

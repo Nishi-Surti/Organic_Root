@@ -1,0 +1,87 @@
+<div class="earnings-wrapper">
+
+<img src="/assets/earn.jpg" class="bg-img">
+
+<div class="earnings-card">
+
+<h2 class="title">My Farm Earning</h2>
+
+<div class="earnings-grid">
+
+<div class="small-card">
+<p>Available Balance</p>
+<h3>₹{{available}}</h3>
+</div>
+
+<div class="small-card">
+<p>Pending Payment</p>
+<h3>₹{{pending}}</h3>
+</div>
+
+<div class="small-card">
+<p>This Month</p>
+<h3>₹{{monthly}}</h3>
+</div>
+
+<div class="small-card">
+<p>Total Earned</p>
+<h3>₹{{total}}</h3>
+</div>
+
+</div>
+
+<div class="activity">
+
+  <div class="activity-header">
+    <h3>Earnings</h3>
+
+    <div class="toggle">
+      <button 
+        [class.active]="filter === 'Weekly'" 
+        (click)="setFilter('Weekly')">
+        Weekly
+      </button>
+
+      <button 
+        [class.active]="filter === 'Monthly'" 
+        (click)="setFilter('Monthly')">
+        Monthly
+      </button>
+    </div>
+
+    <div class="chart-area">
+
+    <div class="amount">
+      {{filter}} Earnings : 
+      ₹{{ filter === 'Weekly' ? week : monthly }}
+    </div>
+
+    <!-- BARS -->
+    <div class="bars">
+
+      <div class="bar-box"
+           *ngFor="let item of chartData; let i = index"
+           [class.active]="item.value > 0">
+
+        <div class="bar"
+             [style.height]="item.value + 'px'"
+            [attr.data-value]="'₹' + item.value">
+        </div>
+
+        <span>{{item.day}}</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+  
+
+
+</div>
+
+</div>
+</div>

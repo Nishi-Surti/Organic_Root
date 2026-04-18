@@ -1,0 +1,35 @@
+<section class="farmers-modern" class="farmers-modern reveal">
+
+  <h2 class="section-title">Meet Our Farmers</h2>
+
+  <div *ngIf="loading" class="loading">Loading farmers...</div>
+
+  <div *ngIf="!loading && farmers.length === 0" class="empty">
+    No farmers available
+  </div>
+
+  <div class="card-grid" *ngIf="!loading && farmers.length > 0">
+
+    <div class="card" *ngFor="let f of farmers">
+
+      <div class="image-wrapper">
+        <img
+          *ngIf="f.fimage"
+          [src]="'http://localhost:3000/uploads/' + f.fimage"
+        />
+      </div>
+
+      <div class="card-content">
+        <h3>{{ f.name }}</h3>
+        <p class="location">📍 {{ f.village }}</p>
+
+        <button class="btn" [routerLink]="['/farmer-products',f.f_id]">
+          View Products →
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

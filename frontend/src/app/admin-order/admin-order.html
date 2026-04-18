@@ -1,0 +1,91 @@
+<div class="order-container">
+
+  <div class="header">
+    <h2>🛒 Order Management</h2>
+
+    <div class="controls">
+      <input type="text"
+             placeholder="🔍 Search Customer..."
+             [(ngModel)]="searchText" class="search">
+
+      <select [(ngModel)]="selectedStatus" class="status">
+        <option value="All">All Status</option>
+        <option>Pending</option>
+        <option>Confirmed</option>
+        <option>Packed</option>
+        <option>Shipped</option>
+        <option>Delivered</option>
+        <option>Cancelled</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary">
+    <div class="card">
+      <h3>{{totalOrders}}</h3>
+      <p>Total Orders</p>
+    </div>
+
+    <div class="card">
+      <h3>{{placedOrders}}</h3>
+      <p>Placed Orders</p>
+    </div>
+
+    <div class="card">
+      <h3>{{deliveredOrders}}</h3>
+      <p>Delivered Orders</p>
+    </div>
+
+    <div class="card">
+      <h3>₹{{totalEarnings}}</h3>
+      <p>Total Earnings</p>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Products</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Payment Method</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of filteredOrders">
+          <td data-label="ID">{{order.id}}</td>
+          <td data-label="Customer">{{order.customer}}</td>
+          <td data-label="Products">{{order.products}}</td>
+          <td data-label="Total">₹{{order.total}}</td>
+
+          <td data-label="Payment">
+            <span [ngClass]="order.payment === 'Paid' ? 'paid' : 'unpaid'">
+              {{order.payment}}
+            </span>
+          </td>
+
+          <td data-label="PaymentMethod">
+            <span [ngClass]="order.paymentMethod === 'COD' ? 'COD' : 'Online'">
+              {{order.paymentMethod}}
+            </span>
+          </td>
+
+          <td data-label="Status">
+            <span class="badge"
+                  [ngClass]="order.status.toLowerCase()">
+              {{order.status}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,159 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+<div class="register-wrapper">
+  <div class="overlay"></div>
+
+  <div class="register-card">
+    <h2>Welcome to <span>Organic Root</span></h2>
+
+    <!-- Role Toggle -->
+    <div class="toggle-container">
+      <div class="toggle">
+        <button [class.active]="role === 'farmer'" (click)="selectRole('farmer')">Farmer</button>
+        <button [class.active]="role === 'consumer'" (click)="selectRole('consumer')">
+          Consumer
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 1 FORM -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="input-box">
+        <i class="bx bx-user"></i>
+        <div class="input-box">
+          <i class="bx bx-user"></i>
+          <input type="text" formControlName="name" placeholder="Full Name" />
+        </div>
+
+        <small
+          class="error"
+          *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.errors"
+        >
+          <span class="error" *ngIf="registerForm.get('name')?.errors?.['required']"> Name is required </span>
+
+          <span class="error" *ngIf="registerForm.get('name')?.errors?.['pattern']">
+            Only alphabets allowed (no numbers)
+          </span>
+        </small>
+      </div>
+
+     
+
+      <div class="input-box">
+        <i class="bx bx-phone"></i>
+        <input type="text" formControlName="mobile" placeholder="Mobile Number" />
+      </div>
+
+      
+      <small class="error" *ngIf="registerForm.get('mobile')?.touched && registerForm.get('mobile')?.invalid">
+        <span class="error" *ngIf="registerForm.get('mobile')?.errors?.['required']"> Mobile no. is required </span>
+        <span class="error" *ngIf="registerForm.get('mobile')?.errors?.['pattern']">
+            Enter valid 10 digit mobile number
+        </span>
+      </small>
+
+      <!-- Farmer -->
+      <div *ngIf="role === 'farmer'" class="input-box">
+        <i class="bx bx-map"></i>
+        <input type="text" formControlName="village" placeholder="Village / City" />
+      </div>
+
+      <small class="error" *ngIf="registerForm.get('village')?.touched && registerForm.get('village')?.invalid">
+        <span class="error" *ngIf="registerForm.get('village')?.errors?.['required']"> Village is required </span>
+         <span class="error" *ngIf="registerForm.get('village')?.errors?.['pattern']">
+            Only alphabets allowed (no numbers)
+          </span>
+      </small>
+
+      <!-- Consumer -->
+      <div *ngIf="role === 'consumer'" class="input-box">
+        <i class="bx bx-home"></i>
+        <input type="text" formControlName="address" placeholder="Delivery Address" />
+      </div>
+
+      <small class="error" *ngIf="registerForm.get('address')?.touched && registerForm.get('address')?.invalid">
+         <span class="error" *ngIf="registerForm.get('address')?.errors?.['required']"> Address is required </span>
+         <span class="error" *ngIf="registerForm.get('address')?.errors?.['pattern']">
+            Only alphabets allowed (no numbers)
+          </span>
+      </small> 
+      
+      
+      <!-- Consumer -->
+      <div *ngIf="role === 'consumer'" class="input-box">
+        <i class="bx bx-map"></i>
+        <input type="text" formControlName="city" placeholder="City" />
+      </div>
+
+      <small class="error" *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
+        <span class="error" *ngIf="registerForm.get('city')?.errors?.['required']"> City is required </span>
+         <span class="error" *ngIf="registerForm.get('city')?.errors?.['pattern']">
+            Only alphabets allowed (no numbers)
+          </span>
+      </small>
+
+      
+      <!-- Farmer -->
+      <div *ngIf="role === 'consumer'" class="input-box">
+        <i class="bx bx-map"></i>
+        <input type="text" formControlName="pincode" placeholder="Pincode" />
+      </div>
+
+      <small class="error" *ngIf="registerForm.get('pincode')?.touched && registerForm.get('pincode')?.invalid">
+        <span class="error" *ngIf="registerForm.get('pincode')?.errors?.['required']"> Pincode is required </span>
+         <span class="error" *ngIf="registerForm.get('pincode')?.errors?.['pattern']">
+            Only numbers allowed (no alphabates)
+          </span>
+      </small>
+
+      <div class="input-box password-box">
+        <i class="bx bx-lock-alt left-icon"></i>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Create Password"
+        />
+        <i
+          class="bx right-icon"
+          [ngClass]="showPassword ? 'bx-hide' : 'bx-show'"
+          (click)="togglePassword()"
+        ></i>
+      </div>
+
+      <small class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors">
+
+  <span *ngIf="registerForm.get('password')?.errors?.['required']">
+    Password is required
+  </span>
+
+  <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
+    Minimum 6 characters required
+  </span>
+
+  <span *ngIf="registerForm.get('password')?.errors?.['pattern']">
+    Must contain letters and numbers
+  </span>
+
+</small>
+
+      <div *ngIf="role === 'farmer'" class="input-box">
+        <i class="bx bx-photo"></i>
+        <input
+          type="file"
+          formControlName="fimage"
+          accept="image/*"
+          (change)="onImageSelect($event)"
+        />
+      </div>
+      <button class="submit" [disabled]="registerForm.invalid || !role">Register</button>
+    </form>
+
+      <div class="extra-links">
+      <a routerLink="/forgot-password">Forgot Password?</a>
+      <p>Already Register ?
+        <a routerLink="/login">Login Here</a>
+      </p>
+    </div>
+
+  </div>
+</div>

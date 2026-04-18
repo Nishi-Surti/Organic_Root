@@ -1,0 +1,152 @@
+.admin-user-container{
+padding:30px;
+background:#f5f7fb;
+min-height:100vh;
+}
+
+/* header */
+.page-header h2{
+margin-bottom:5px;
+font-size:24px;
+}
+
+.page-header p{
+color:#777;
+}
+
+.filter-bar select{
+  padding:8px 14px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* table box */
+.table-wrapper{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-top:20px;
+overflow-x:auto; /* important for mobile */
+}
+
+/* table */
+.user-table{
+width:100%;
+border-collapse:collapse;
+min-width:700px; /* mobile scroll */
+}
+
+.user-table th{
+background:hsl(115, 97%, 14%);
+color: white;
+padding:12px;
+text-align:left;
+font-size:18px;
+}
+
+.user-table td{
+padding:12px;
+border-bottom:1px solid #eee;
+font-size:16px;
+}
+
+/* profile image */
+.profile{
+width:60px;
+height:50px;
+border-radius:20%;
+}
+
+/* role badge */
+.role{
+padding:5px 10px;
+border-radius:5px;
+font-size:13px;
+}
+
+.farmer{
+color:#034e15;
+}
+
+.consumer{
+color:#034e15;
+}
+
+/* status */
+.status.active{
+color:#034e15;
+font-weight:600;
+}
+
+/* buttons */
+.edit{
+background:#ffea01;
+color:rgb(0, 0, 0);
+border:none;
+padding:10px 15px;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+.delete{
+background:#f81c04;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:5px;
+cursor:pointer;
+margin-left:10px;
+font-size:16px;
+}
+
+/* 📱 Tablet */
+@media (max-width:768px){
+
+.admin-user-container{
+padding:15px;
+}
+
+.page-header h2{
+font-size:20px;
+}
+
+.user-table th,
+.user-table td{
+padding:10px;
+font-size:13px;
+}
+
+.profile{
+width:35px;
+height:35px;
+}
+
+}
+
+/* 📱 Mobile */
+@media (max-width:480px){
+
+.page-header h2{
+font-size:18px;
+}
+
+.page-header p{
+font-size:13px;
+}
+
+.edit,
+.delete{
+padding:5px 8px;
+font-size:12px;
+}
+
+.profile{
+width:30px;
+height:30px;
+}
+
+}

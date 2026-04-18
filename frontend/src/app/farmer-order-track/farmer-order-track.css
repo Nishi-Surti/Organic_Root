@@ -1,0 +1,226 @@
+body{
+font-family:Poppins;
+background:#f4f6f9;
+margin:0;
+font-size: 16px;
+}
+
+.orders-container{
+padding:30px;
+}
+
+.header{
+display:flex;
+justify-content: space-around;
+align-items:center;
+margin-bottom:20px;
+}
+
+.header input{
+
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+width:200px;
+}
+
+.header select{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    width:200px;
+}
+
+.orders-table{
+background:white;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+overflow:hidden;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#4CAF50;
+color:white;
+padding:12px;
+text-align:left;
+}
+
+td, select{
+padding:12px;
+border-bottom:1px solid #eee;
+font-size: 16px;
+}
+
+.product{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.product img{
+width:40px;
+height:40px;
+border-radius:6px;
+object-fit:cover;
+}
+
+/* status */
+
+.status{
+padding:5px 12px;
+border-radius:20px;
+font-size:16px;
+}
+
+.confirmed{
+background:#4fe10b4b;
+color:#046318;
+}
+
+.packed{
+background:#fff3cd;
+color:#856404;
+}
+
+.shipped{
+background:#cce5ff;
+color:#004085;
+}
+
+.delivered{
+background:#d4edda;
+color:#155724;
+}
+
+/* button */
+
+.btn{
+background:#4CAF50;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn:hover{
+background:#388e3c;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+
+  .orders-container {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .header input,
+  .header select {
+    width: 100%;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .orders-container {
+    padding: 10px;
+  }
+
+  /* Header stacked */
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header input,
+  .header select {
+    width: 100%;
+  }
+
+  /* TABLE SCROLL FIX */
+  .orders-table {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px; /* important */
+  }
+
+  th, td {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  /* Product layout */
+  .product {
+    gap: 6px;
+  }
+
+  .product img {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Status */
+  .status {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* Button */
+  .btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  .header h2{
+    margin-left: 50px;
+    font-size: 25px;
+  }
+
+  /* Even smaller spacing */
+  th, td {
+    font-size: 16px;
+    padding: 6px;
+  }
+
+  .product img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+}

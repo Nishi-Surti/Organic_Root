@@ -1,0 +1,154 @@
+/* Section Background */
+.contact-section {
+    
+  background: 
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('/assets/ctn.jpg');
+    border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  color: white;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 20px 3%;
+  padding: 70px 5%;
+}
+
+/* Wrapper */
+.contact-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 50px;
+  align-items: center;
+}
+
+/* Left Side */
+.contact-left h2 {
+  font-size: 38px;
+  padding: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+ 
+}
+
+.info-item i {
+  font-size: 22px;
+  margin-right: 15px;
+  color: #00e676;
+}
+
+
+
+.tagline {
+  margin-top: 20px;
+  font-size: 22px;
+  margin: 20px;
+}
+
+/* Right Form */
+.contact-right form {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-right input,
+.contact-right textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  outline: none;
+}
+
+.contact-right button {
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg,#1b5e20, #00c853, #1b5e20);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-right button:hover {
+  transform: scale(1.05);
+}
+
+/* ================= MOBILE CONTACT (PRO) ================= */
+@media (max-width: 768px) {
+
+  .contact-section {
+    margin: 10px;
+    padding: 30px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  /* GRID */
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  /* LEFT SIDE */
+  .contact-left {
+    text-align: center;
+  }
+
+  .contact-left h2 {
+    font-size: 24px;
+    padding: 5px;
+  }
+
+  .info-item {
+    justify-content: center;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .info-item i {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+
+  .tagline {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  /* RIGHT FORM */
+  .contact-right form {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .contact-right input,
+  .contact-right textarea {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .contact-right textarea {
+    min-height: 100px;
+  }
+
+  .contact-right button {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+}

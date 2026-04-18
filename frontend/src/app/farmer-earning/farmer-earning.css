@@ -1,0 +1,322 @@
+.earnings-wrapper{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+overflow:visible;
+font-size: 16px;
+}
+
+/* background image */
+
+.bg-img{
+position:absolute;
+width:100%;
+height: 100%;
+object-fit:cover;
+
+}
+
+p{
+  font-size: 16px;
+}
+/* glass card */
+
+.earnings-card{
+width:unset;
+ min-width:420px;         /* minimum */
+  max-width:90%;
+padding:25px;
+margin: 60px;
+border-radius:20px;
+padding-bottom: 20px;
+margin-bottom: 30px;
+/* glass effect */
+
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+-webkit-backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,0.3);
+
+box-shadow:0 8px 32px rgba(0,0,0,0.25);
+}
+
+.title{
+color:#03360a;
+margin-bottom:20px;
+text-align: center;
+}
+
+/* grid */
+
+.earnings-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+}
+
+/* small cards */
+
+.small-card{
+background:rgba(255,255,255,0.85);
+padding:15px;
+border-radius:10px;
+}
+
+.small-card p{
+color:#000000;
+font-size:18px;
+}
+
+.small-card h3{
+margin-top:5px;
+}
+
+/* activity box */
+.activity{
+background:rgba(255,255,255,0.85);  
+padding:15px;
+border-radius:10px;
+}
+
+.toggle{
+  display:flex;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.toggle button{
+  padding:10px 15px;
+  border:none;
+  font-size: 16px;
+  background:none;
+  cursor:pointer;
+}
+
+.toggle .active{
+  background:#ff7a00;
+  color:white;
+  border-radius:20px;
+}
+
+.amount{
+  margin:10px 0;
+  font-size:20px;
+  font-weight: 400;
+}
+
+/* bars */
+
+.bars{
+  display:flex;
+  gap:15px;
+  align-items:flex-end;
+  height:120px;
+  margin-top:10px;
+}
+
+.bar-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.bar{
+  width:18px;
+  background:#ddd;
+  border-radius:10px;
+  transition:0.4s;
+}
+
+.bar-box.active .bar{
+  background:#ff7a00;
+}
+
+.bar-box span{
+  margin-top:6px;
+  font-size:14px;
+}
+
+.months {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 8px 0;
+
+  scrollbar-width: none;
+}
+
+.months::-webkit-scrollbar {
+  display: none;
+}
+
+.months span {
+  flex: 0 0 auto;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
+
+.bar {
+  position: relative;
+}
+
+/* Tooltip */
+.bar::after {
+  content: attr(data-value);
+  position: absolute;
+  bottom: 110%;  /* bar upar */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  
+  background: black;
+  color: white;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+/* Show on hover */
+.bar:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+/* ================= TABLET ================= */
+@media (max-width:1024px){
+
+  .earnings-card{
+    min-width: auto;
+    width: 85%;
+    margin: 40px 20px;
+    padding: 20px;
+  }
+
+  .earnings-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+  .earnings-wrapper{
+    padding: 15px;
+    min-height: auto; /* remove full height issue */
+  }
+
+  .earnings-card{
+    width: 100%;           /* full width */
+    min-width: unset;
+    margin: 10px 0;
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  /* GRID → 1 COLUMN */
+  .earnings-grid{
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .small-card{
+    padding: 12px;
+  }
+
+  .small-card p{
+    font-size: 16px;
+  }
+
+  .small-card h3{
+    font-size: 18px;
+  }
+
+  /* ACTIVITY */
+  .activity{
+    padding: 12px;
+  }
+
+  .toggle{
+    width: 100%;
+  }
+
+  .toggle button{
+    flex:1;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .amount{
+    font-size: 16px;
+  }
+
+  /* CHART */
+  .bars{
+    width: 100%;
+    justify-content: space-between;
+    height: 80px;
+    gap: 8px;
+  }
+
+  .bar{
+    width: 20px;
+    border-radius: 8px;
+  }
+
+  .bar-box span{
+    font-size: 14px;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width:480px){
+
+  .title{
+    font-size: 18px;
+  }
+
+  .earnings-card{
+    padding: 15px;
+    min-width: unset;
+  }
+
+  .small-card h3{
+    font-size: 16px;
+  }
+
+  .small-card p{
+    font-size: 14px;
+  }
+
+  .activity-header h3{
+    font-size: 14px;
+  }
+
+  .bar{
+    width: 16px;
+  }
+
+  .bars{
+    height: 70px;
+  }
+
+  .bar-box span{
+    font-size: 14px;
+  }
+
+
+}

@@ -1,0 +1,216 @@
+<div class="checkout-page">
+
+<button class="back-btn" onclick="history.back()">
+      ⬅ Back
+    </button>
+
+<h2>Checkout</h2>
+
+<div class="checkout-container">
+
+<!-- LEFT SIDE -->
+
+<div class="checkout-left">
+
+  <h3>📦 Order Summary</h3>
+
+  <!-- ✅ LOOP -->
+  <div *ngFor="let product of products" class="product-card">
+
+    <img [src]="'http://localhost:3000'+product.pimg">
+
+    <div>
+
+      <h4>{{product.pname}}</h4>
+      <p>₹{{product.price}} / {{product.priceUnit}}</p>
+
+      <div class="qty-box">
+        <span>Quantity:</span>
+
+        <!-- 🔥 FIX -->
+        <button class="qty-btn" (click)="decrease(product)">−</button>
+
+        <span class="qty-value">
+          {{product.qty}} / {{product.priceUnit}}
+        </span>
+
+        <button class="qty-btn" (click)="increase(product)">+</button>
+      </div>
+
+      <p class="total">Total: ₹{{product.price * product.qty}}</p>
+
+    </div>
+
+  </div>
+
+  <!-- ✅ TOTAL OUTSIDE LOOP -->
+  <div class="final-total-box">
+    <h3>Total Amount: ₹{{getTotal()}}</h3>
+  </div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+
+<div class="checkout-right">
+
+<h3>📍 Delivery Address</h3>
+
+<form  [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+
+<input type="text" placeholder="Full Name" formControlName="cname">
+<small *ngIf="orderForm.get('cname')?.touched && orderForm.get('cname')?.invalid">
+        Full Name is required
+      </small>
+
+<input type="text" placeholder="Mobile Number" formControlName="mobile">
+<small *ngIf="orderForm.get('mobile')?.touched && orderForm.get('mobile')?.invalid">
+          Enter valid 10 digit mobile number
+      </small>
+
+<textarea placeholder="Full Address" formControlName="address"></textarea>
+<small *ngIf="orderForm.get('address')?.touched && orderForm.get('address')?.invalid">
+        Delivary address is required
+      </small>
+
+<input type="text" placeholder="City" formControlName="city">
+<small *ngIf="orderForm.get('cname')?.touched && orderForm.get('cname')?.invalid">
+        city is required
+      </small>
+
+<input type="number" placeholder="Pincode" formControlName="pincode">
+<small *ngIf="orderForm.get('pincode')?.touched && orderForm.get('pincode')?.invalid">
+        Pincode is required
+      </small>
+
+
+<!-- PAYMENT SECTION FORM NI ANDAR -->
+
+<div class="payment-section">
+
+      <h3>💳 Payment Method</h3>
+
+      <div class="payment-options">
+
+      <label class="payment-card">
+
+      <input type="radio" name="paymentMethod" value="cod" formControlName="paymentMethod">
+
+      <div class="card-content">
+
+      <span class="icon">💵</span>
+
+      <div>
+            <h4>Cash on Delivery</h4>
+            <p>Pay when product arrives</p>
+      </div>
+
+      </div>
+
+      </label>
+
+
+            <label class="payment-card">
+
+            <input type="radio" name="paymentMethod" value="online" formControlName="paymentMethod" (change)="openUPI()">
+
+      <div class="card-content">
+
+      <span class="icon">📱</span>
+
+      <div>
+            <h4>UPI/Online Pay</h4>
+            <p>Pay using UPI or card</p>
+      </div>
+
+      </div>
+
+</label>
+
+</div>
+
+
+<div class="place-order-box">
+      <button class="place-order-btn" type="submit">
+      🛒 Place Order
+      </button>
+
+      <button type="button" class="edit-btn" (click)="enableEdit()">
+      ✏ Edit
+      </button>
+</div>
+
+</div>
+
+
+</form> 
+
+<div class="order-popup" *ngIf="showSuccessPopup">
+
+<div class="popup-card">
+
+<div class="success-icon">✔</div>
+
+<h2>Order Placed Successfully!</h2>
+
+<p>Your order has been confirmed.</p>
+
+<p><strong>Order ID :</strong> {{orderId}}</p>
+<p><strong>Payment Method :</strong> {{orderForm.value.paymentMethod}}</p>
+
+<div class="popup-buttons">
+
+<button (click)="goDashboard()"  class="shop-btn">
+Continue Shopping
+</button>
+
+<button (click)="goOrders()" class="orders-btn">
+View My Orders
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- UPI POPUP -->
+<div class="upi-popup" *ngIf="showUPIPopup">
+
+  <div class="upi-card">
+
+    <h2>📱 Scan & Pay</h2>
+
+    <!-- QR CODE -->
+    <qrcode 
+      [qrdata]="upiLink" 
+      [width]="200" 
+      [errorCorrectionLevel]="'M'">
+    </qrcode>
+
+    <p>Scan using any UPI App</p>
+
+    <p class="timer">⏳ Time Left: {{formattedTime}}</p>
+    <div class="upi-buttons">
+      <button (click)="closeUPI()" class="cancel-btn">
+        ❌ Cancel
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PAYMENT SUCCESS -->
+<div class="order-popup" *ngIf="showPaymentSuccess">
+
+  <div class="popup-card">
+
+    <div class="success-icon">✔</div>
+
+    <h2>Payment Successful!</h2>
+    <p>Your payment has been received.</p>
+
+  </div>
+
+</div>

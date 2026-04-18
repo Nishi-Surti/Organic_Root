@@ -1,0 +1,94 @@
+<div class="dashboard-container">
+
+  
+  <!-- DASHBOARD -->
+  <div class="dashboard">
+
+    <!-- HEADER -->
+    <div class="welcome-card">
+      <div>
+        <h2>👋 Welcome {{farmerName}}</h2>
+        <p>Sell Fresh Products Today</p>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+
+      <div class="card add"
+           routerLink="/farmers/add-product">
+        <span>➕</span>
+        <p>Add Product</p>
+      </div>
+
+      <div class="card add" routerLink="/farmers/my-product">
+        <span>📦</span>
+        <p>My Products</p>
+      </div>
+
+      <div class="card" routerLink="/farmers/farmer-earning">
+        <span>💰</span>
+        <p>Earnings</p>
+      </div>
+
+      <div class="card" routerLink="/farmers/farmer-order-track">
+        <span>🚚</span>
+        <p>Orders</p>
+      </div>
+
+    </div>
+
+    <!-- RECENT -->
+    <div class="recent-orders">
+
+  <h2>📋 Recent Orders</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Product</th>
+        <th>Customer</th>
+        <th>Total</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let order of paginatedOrders">
+        <td data-label="Order ID">{{order.id}}</td>
+        <td data-label="Product">{{order.product}}</td>
+        <td data-label="Customer">{{order.customer}}</td>
+        <td data-label="Total">₹ {{order.total}}</td>
+        <td data-label="Date">{{order.date}}</td>
+        <td data-label="Status">
+          <span class="status" [ngClass]="order.status.toLowerCase()">
+            {{order.status}}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ✅ PAGINATION OUTSIDE TABLE -->
+  <div class="pagination">
+
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      ⬅ Prev
+    </button>
+
+    <span>Page {{currentPage}} of {{totalPages}}</span>
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next ➡
+    </button>
+
+  </div>
+
+</div>
+
+
+
+  </div> <!-- ✅ dashboard CLOSE -->
+</div>

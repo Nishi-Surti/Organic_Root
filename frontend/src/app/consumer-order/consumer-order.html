@@ -1,0 +1,168 @@
+    <button class="back-btn" onclick="history.back()">
+      ⬅ Back
+    </button>
+    <div class="order-card" *ngFor="let order of orders; let i = index">
+  <!-- ✅ ALWAYS VISIBLE TOP CARD -->
+  <div class="order-summary-box" (click)="toggleOrder(i)">
+
+    <img [src]="'http://localhost:3000' + order.pimg" class="order-img">
+
+    <div class="order-info">
+      <h4>OrderId : {{order.order_id}}</h4>
+      <p>Product : {{order.pname}}</p>
+      <span class="price">Price ₹{{order.totalPrice}}</span>
+    </div>
+
+    
+
+    <div class="status">
+      {{ getStatusText(order.orderStatus) }}
+      <br>
+
+      <!-- Cancel Button -->
+      <button 
+          class="cancel-btn"
+          *ngIf="order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled'"
+          (click)="openCancelModal(order.order_id); $event.stopPropagation()">
+      Cancel
+    </button>
+
+    <button 
+      class="bill-btn"
+      (click)="openBillModal(order); $event.stopPropagation()">
+      View Bill
+    </button>
+    </div>
+
+  </div>
+
+  <!-- ✅ ONLY SHOW WHEN CLICK -->
+  <div class="order-details" *ngIf="selectedOrderIndex === i">
+
+    <div class="details-container">
+
+      <!-- LEFT -->
+      <div class="left-section">
+        <p><strong>Quantity :</strong> {{order.quantity}}</p>
+        <p><strong>Price :</strong> ₹{{order.price}}</p>
+        <p><strong>Total Price :</strong> ₹{{order.totalPrice}}</p>
+        <p><strong>Payment :</strong> {{order.paymentMethod}}</p>
+        <p><strong>Address :</strong> {{order.address}}</p>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-section">
+
+        <div class="timeline-horizontal">
+
+          <div class="step-box"  [ngClass]="{'active': getStepNumber(order.orderStatus) >= 1}">
+            <i class="fas fa-receipt"></i>
+            <p>Placed</p>
+          </div>
+
+          <div class="line" [ngClass]="{'active-line': getStepNumber(order.orderStatus) >= 2}"></div>
+
+          <div class="step-box" [ngClass]="{'active': getStepNumber(order.orderStatus) >= 2}">
+            <i class="fas fa-box"></i>
+            <p>Packed</p>
+          </div>
+
+          <div class="line" [ngClass]="{'active-line': getStepNumber(order.orderStatus) >= 3}"></div>
+
+          <div class="step-box"  [ngClass]="{'active': getStepNumber(order.orderStatus) >= 3}">
+            <i class="fas fa-truck"></i>
+            <p>Shipped</p>
+          </div>
+
+          <div class="line" [ngClass]="{'active-line': getStepNumber(order.orderStatus) >= 4}"></div>
+
+          <div class="step-box"  [ngClass]="{'active': getStepNumber(order.orderStatus) >= 4}">
+            <i class="fas fa-check-circle"></i>
+            <p>Delivered</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CANCEL CONFIRM MODAL -->
+<div class="modal-backdrop" *ngIf="showCancelModal">
+
+  <div class="modal-box">
+    <h3>Cancel Order</h3>
+    <p>Are you sure you want to cancel this order?</p>
+
+    <div class="modal-actions">
+      <button class="btn cancel" (click)="closeModal()">No</button>
+      <button class="btn confirm" (click)="confirmCancel()">Yes, Cancel</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- BILL MODAL -->
+<div class="modal-backdrop" *ngIf="showBillModal">
+
+  <div id="billContent" class="bill-box">
+
+  <!-- HEADER -->
+<div class="invoice-header">
+
+  <div class="logo-box">
+    <img src="http://localhost:4200/assets/logo.png" class="logo">
+  </div>
+
+  <div class="company-details">
+    <h2>Organic Root</h2>
+    <p>📍 Surat, Gujarat</p>
+    <p>📞 +91 9876543210</p>
+    <p>📧 support@organicroot.com</p>
+  </div>
+
+</div>
+
+  <hr>
+
+  <!-- ORDER INFO -->
+  <p><strong>Order ID:</strong> {{selectedOrder.order_id}}</p>
+  <p><strong>Farmer:</strong> {{selectedOrder.farmerName}}</p>
+
+  <hr>
+
+  <!-- PRODUCT TABLE -->
+  <table class="prd-table">
+    <tr class="rows">
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+
+    <tr>
+  <td>{{selectedOrder.pname}}</td>
+  <td>{{selectedOrder.quantity}}</td>
+  <td>₹{{selectedOrder.price}}</td>
+  <td>₹{{selectedOrder.totalPrice}}</td>
+</tr>
+  </table>
+
+  <h3>Total: ₹{{selectedOrder.totalPrice}}</h3>
+
+  <p><strong>Payment:</strong> {{selectedOrder.paymentMethod}}</p>
+  <p><strong>Address:</strong> {{selectedOrder.address}}</p>
+
+  <div class="modal-actions no-print">
+  <button class="bill-btn" (click)="printBill()">Download PDF</button>
+  <button class="close" (click)="closeBillModal()">Close</button>
+</div>
+
+</div>
+
+  
+</div>

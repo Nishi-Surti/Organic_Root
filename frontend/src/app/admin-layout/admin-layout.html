@@ -1,0 +1,71 @@
+<div class="admin-layout">
+<!-- HAMBURGER -->
+<div class="hamburger" (click)="toggleSidebar()">
+  ☰
+</div>
+
+ <div class="overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" [class.open]="isSidebarOpen">
+
+    <div class="logo">
+      <img src="/assets/logo.png" />
+  </div>
+   
+<span class="close" (click)="closeSidebar()">✕</span>
+    <h2 class="logo">🌿 Admin</h2>
+    <ul>
+
+  <li>
+    <a [routerLink]="['/admin/admin-dashboard']" routerLinkActive="active" (click)="handleNavigation()">
+      📊 Dashboard
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/admin/admin-manage-category']" routerLinkActive="active" (click)="handleNavigation()">
+      📁 Category
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/admin/farmer-approval']" routerLinkActive="active" (click)="handleNavigation()">
+      👨‍🌾 Farmers
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/admin/admin-product']" routerLinkActive="active" (click)="handleNavigation()">
+      🛒 Products
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/admin/admin-order']" routerLinkActive="active" (click)="handleNavigation()">
+      📦 Orders
+    </a>
+  </li>
+  
+  <li>
+    <a [routerLink]="['/admin/admin-user']" routerLinkActive="active">
+      👥 Users
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/admin/admin-report']" routerLinkActive="active" (click)="handleNavigation()">
+      📊 Reports
+    </a>
+  </li>
+
+</ul>
+
+    <button class="logout" (click)="logout()">Logout</button>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+</div>

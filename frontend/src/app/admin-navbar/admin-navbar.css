@@ -1,0 +1,133 @@
+.admin-navbar {
+  display: flex;
+  font-size: 25px;
+  justify-content: space-between;
+  align-items: center;
+  background: #94d49a;
+  color: #0a361a;
+  padding:5px 30px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.admin-nav{
+  align-items: center;
+  display: flex;
+  gap: 25px;
+  cursor: pointer;
+}
+
+.admin-nav a{
+  color:#0a361a;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.admin-nav a:hover {
+  
+  transition:  0.3s ease;
+  transform: translateY(-5px);
+}
+
+.log-btn{
+  background: #579e51;
+  color: white;
+  border-radius: 20px;
+  padding:8px 18px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.log-btn:hover{
+  color:#55ab59;
+  background: white;
+  border: 2px solid #2c7226;
+}
+/* ===================== */
+/* HAMBURGER STYLE */
+/* ===================== */
+
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* ===================== */
+/* MOBILE RESPONSIVE */
+/* ===================== */
+@media (max-width: 992px) {
+
+  .admin-navbar {
+    position: relative;
+    flex-wrap: wrap;
+    border-radius: 15px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .admin-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 30%;
+    background: #94d49a;
+    flex-direction: column;
+    align-items: flex-start;
+    display: none;
+    padding: 15px 20px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .admin-nav.active {
+    display: flex;
+  }
+
+  .admin-nav a {
+    font-size: 18px;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .log-btn {
+    
+    margin-top: 10px;
+    text-align: center;
+  }
+
+}

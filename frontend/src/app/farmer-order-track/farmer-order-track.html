@@ -1,0 +1,73 @@
+<div class="orders-container">
+  <div class="header">
+    <h2>📦 My Orders</h2>
+
+    <input
+      type="text"
+      placeholder="Search Order..."
+      [(ngModel)]="searchText"
+      (input)="searchOrders()"
+    >
+
+    <span class="filter-wrap">
+      <select [(ngModel)]="statusFilter" (change)="applyFilter()">
+        <option value="">All Orders</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Packed">Packed</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </span>
+  </div>
+
+  <div class="orders-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Product</th>
+          <th>Customer</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of filteredOrders">
+          <td data-label="Order ID">{{order.id}}</td>
+
+          <td class="product" data-label="Product">
+            <img [src]="order.image" [alt]="order.product">
+            <span>{{order.product}}</span>
+          </td>
+
+          <td data-label="Customer">{{order.customer}}</td>
+          <td data-label="Quantity">{{order.quantity}}</td>
+          <td data-label="Total">{{order.price}}</td>
+          <td data-label="Date">{{order.date}}</td>
+
+          <td data-label="Status">
+            <span class="status" [ngClass]="order.status.toLowerCase()">
+              {{order.status}}
+            </span>
+          </td>
+
+          <td data-label="Action">
+            <select class="btn" (change)="updateOrder($event, order.id)" [value]="order.status">
+              <option value="">Update</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Packed">Packed</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="admin-container">
+  <div class="header">
+      <h1>👨‍🌾 Pending Farmers</h1>
+  </div>
+  
+  <!-- Loading -->
+<div *ngIf="isLoading" style="text-align:center; font-size:20px;">
+  Loading Farmers...
+</div>
+
+<div *ngIf="!isLoading && pendingFarmers.length > 0">
+  <div class="pen-grid">
+    <div class="pen-card" *ngFor="let farmer of pendingFarmers">
+      <img 
+        [src]="'http://localhost:3000/uploads/' + farmer.fimage"
+      />
+      <h3>Name : {{farmer.name}}</h3>
+      <p>Mobile No. :{{farmer.mobile}}</p>
+      <div class="actions">
+        <button class="approve" (click)="approve(farmer.f_id)">Approve</button>
+        <button class="reject" (click)="reject(farmer.f_id)">Reject</button>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<!-- No Data -->
+<div *ngIf="!isLoading && pendingFarmers.length === 0"
+     style="text-align:center; font-size:22px; font-weight:bold;">
+  No Pending Farmers
+</div>
+
+
+
+</div>

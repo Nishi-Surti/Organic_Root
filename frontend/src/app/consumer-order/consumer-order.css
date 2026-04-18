@@ -1,0 +1,427 @@
+.back-btn{
+background:#2e7d32;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+margin: 20px;
+}
+
+.order-summary-box{
+  display:flex;
+  align-items:center;
+  padding:15px;
+  cursor:pointer;
+  gap:15px;
+  background:white;   /* 🔥 add this */
+  z-index:1;
+}
+.order-card
+{
+   background:#fff; 
+   border-radius:12px; 
+   margin-bottom:15px; 
+   box-shadow:0 3px 10px rgba(0,0,0,0.08); 
+   overflow:hidden; 
+   margin: 20px 100px; 
+} 
+
+/* TOP BAR */ 
+.order-summary-box
+{ 
+  display:flex; 
+  align-items:center; 
+  padding:15px; 
+  cursor:pointer; 
+  gap:15px; 
+} 
+.order-summary-box:hover
+{ 
+  background:#f9f9f9; 
+} 
+
+.order-img
+{ 
+  width:60px; 
+  height:60px; 
+  border-radius:8px; 
+  object-fit:cover; 
+} 
+.order-info h4
+{ 
+  margin:0; 
+  font-size:16px; 
+} 
+.order-info p
+{ 
+  margin:2px 0; 
+  color:#666; 
+} 
+.price
+{ 
+  color:#2e7d32; 
+  font-weight:600; 
+} 
+.status
+{ 
+  margin-left:auto; 
+  color:#2e7d32; 
+  font-weight:600; 
+} 
+
+/* DETAILS */ 
+.order-details
+{ 
+  padding:15px; 
+  border-top:1px solid #eee; 
+} 
+.order-details table
+{
+   width:100%; 
+  margin-bottom:10px; 
+  text-align: center; 
+  border-bottom: #2e7d32; 
+}
+
+.details-container{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+/* LEFT */
+.left-section{
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* RIGHT */
+.right-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* HORIZONTAL TIMELINE */
+.timeline-horizontal{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* STEP */
+.step-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* ✅ ADD THIS */
+  text-align: center;    /* ✅ ADD THIS */
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.step-box i{
+  background: #2e7d32;
+  color: white;
+  padding: 20px;
+  border-radius: 50%;
+  font-size: 20px;
+  margin-bottom: 5px;
+ 
+  display: flex;              /* ✅ ADD */
+  align-items: center;        /* ✅ ADD */
+  justify-content: center;    /* ✅ ADD */
+}
+
+/* LINE BETWEEN STEPS */
+.line{
+  flex: 1;
+  height: 2px;
+  background: #2e7d32;
+  margin: 0 10px;
+}
+
+/* DEFAULT (GRAY) */
+/* DEFAULT */
+.step-box i{
+  background: #ccc;
+}
+
+/* ACTIVE */
+.step-box.active i{
+  background: #2e7d32;
+}
+
+.line {
+  background: #ccc;
+}
+
+/* ACTIVE (GREEN) */
+.step-box.active i {
+  background: #2e7d32;
+}
+
+.step-box.active {
+  color: #2e7d32;
+}
+
+.active-line {
+  background: #2e7d32 !important;
+}
+
+/* BACKDROP */
+.modal-backdrop{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+/* BOX */
+.modal-box{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ACTION BUTTONS */
+.modal-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.btn{
+  padding:8px 15px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.btn.cancel{
+  background:#ccc;
+}
+
+.btn.confirm{
+  background:#e53935;
+  font-size: 16px;
+  color:white;
+}
+
+.close{
+  background:#e53935;
+  font-size: 16px;
+  color:white;
+  border-radius:6px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-btn{
+  margin:10px;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cancel-btn:hover{
+  background: #c62828;
+}
+
+.bill-btn {
+  margin-top: 8px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.bill-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 350px;
+}
+
+.prd-table, tr, td{
+  border: 1px solid black;
+  width: 100%;
+}
+
+.rows{
+  border: 2px solid black;
+}
+
+.bill-box {
+  width: 700px;
+  margin: auto;
+  background: white;
+}
+
+/* ================= TABLET ================= */
+@media (max-width:1024px){
+
+  .order-card{
+    margin:20px;
+  }
+
+  .details-container{
+    grid-template-columns:1fr; /* stack */
+    gap:15px;
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+ .back-btn{
+        margin-left: 100px;
+        font-size: 14px;
+    }
+
+     h2{
+        text-align: center;
+    }
+
+
+  /* CARD FULL WIDTH */
+  .order-card{
+    margin:10px;
+  }
+
+  /* SUMMARY */
+  .order-summary-box{
+    flex-direction:row;
+    gap:10px;
+    padding:10px;
+  }
+
+  .order-img{
+    width:50px;
+    height:50px;
+  }
+
+  .order-info h4{
+    font-size:14px;
+  }
+
+  .order-info p{
+    font-size:12px;
+  }
+
+  .status{
+    font-size:12px;
+  }
+
+  /* DETAILS STACK */
+  .details-container{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .left-section{
+    padding:10px;
+  }
+
+  /* TIMELINE FIX */
+  .timeline-horizontal{
+    flex-wrap:wrap;   /* 🔥 important */
+    gap:10px;
+    justify-content:center;
+  }
+
+  .line{
+    display:none; /* remove long lines */
+  }
+
+  .step-box{
+    flex:1 1 30%;
+    font-size:12px;
+  }
+
+  .step-box i{
+    padding:8px;
+    font-size:12px;
+  }
+
+  /* TABLE FIX */
+  .order-details table{
+    font-size:12px;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width:480px){
+
+.back-btn{
+        margin-left: 100px;
+        font-size: 14px;
+    }
+
+     h2{
+        text-align: center;
+    }
+
+  .order-card{
+    margin:8px;
+  }
+
+  .order-summary-box{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .status{
+    margin-left:0;
+  }
+
+  .step-box{
+    flex:1 1 45%;
+  }
+
+  .modal-box{
+    width:90%;
+    padding:15px;
+  }
+
+  .modal-actions{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .cancel-btn{
+    width:100%;
+    font-size:14px;
+  }
+
+}

@@ -1,0 +1,24 @@
+<div class="offers-page">
+
+  <h2>🌿 Today’s Fresh Deals</h2>
+
+  <div class="offer-grid">
+
+    <div class="offer-card" *ngFor="let item of offers">
+
+      <img [src]="item.image">
+
+      <h3>{{item.name}}</h3>
+
+      <p class="old-price">₹{{item.oldPrice}}</p>
+      <p class="new-price">₹{{item.newPrice}}</p>
+
+      <span class="discount">{{item.discount}}% OFF</span>
+
+      <button class="cart-btn">Add to Cart</button>
+
+    </div>
+
+  </div>
+
+</div>

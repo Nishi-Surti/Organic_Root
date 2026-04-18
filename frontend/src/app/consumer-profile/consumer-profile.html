@@ -1,0 +1,65 @@
+<div class="profile-page">
+
+  <button class="back-btn" onclick="history.back()">
+      ⬅ Back
+  </button>
+  
+  <!-- HEADER -->
+  <div class="profile-header">
+    <div class="profile-left">
+      <div class="avatar-circle">
+          {{ getInitials(consumer.name) }}
+      </div>
+      <div>
+        <h2>{{consumer.name}}</h2>
+        <p>{{consumer.mobile}}</p>
+      </div>
+    </div>
+
+    <button class="edit-btn" (click)="toggleEdit()">
+      {{isEdit ? 'Save' : 'Edit Profile'}}
+    </button>
+  </div>
+
+  <!-- MAIN CARD -->
+  <div class="profile-card">
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" [(ngModel)]="consumer.name" [disabled]="!isEdit">
+    </div>
+
+    <div class="form-group">
+      <label>Mobile</label>
+      <input type="text" [(ngModel)]="consumer.mobile" disabled>
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <textarea [(ngModel)]="consumer.address" [disabled]="!isEdit"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" [(ngModel)]="consumer.city" [disabled]="!isEdit">
+      </div>
+
+      <div class="form-group">
+        <label>Pincode</label>
+        <input type="text" [(ngModel)]="consumer.pincode" [disabled]="!isEdit">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EXTRA SECTION -->
+  <div class="profile-extra">
+
+    <div class="extra-card" routerLink="/consumer-order">
+      <h4>📦 Orders</h4>
+      <p>{{totalOrders}} Orders</p>
+    </div>
+  </div>
+
+</div>

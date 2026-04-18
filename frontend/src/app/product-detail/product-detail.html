@@ -1,0 +1,35 @@
+<div class="product-container">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+
+    <h2>Add Product</h2>
+    <label>Product Category</label><br>
+    <select formControlName="category">
+      <option value="">Select Category</option>
+      <option>Vegetables</option>
+      <option>Fruits</option>
+      <option>Grains</option>
+      <option>Green Vegetables</option>
+    </select>
+    <br>
+    <!-- <input type="text" placeholder="Product Name" formControlName="pname"> -->
+   
+    <label>Product Name</label>
+    <input type="text" placeholder="Product Name" formControlName="pname">
+    <br>
+    <label>Price</label><br>
+    <input type="text" formControlName="price" placeholder="Price">
+    <br>
+    <label>Quantity</label><br>
+    <input type="text" formControlName="quantity">
+    <br>
+    <label>Product Image</label><br>
+    
+    <input type="file" accept="image/*" name="pimg" (change)="onImageSelect($event)">
+    <br>
+    <button type="submit" [disabled]="productForm.invalid">
+      Add Product
+    </button>
+
+  </form>
+</div>
+

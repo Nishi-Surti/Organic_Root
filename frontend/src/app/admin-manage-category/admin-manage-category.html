@@ -1,0 +1,85 @@
+<div class="admin-container">
+  <div class="header">
+    <h1>🛒 Manage Categories</h1>
+  </div>
+
+<div class="category-manage-wrapper">
+<!-- FORM -->
+
+<div class="manage-category">
+
+<h2>Manage Category</h2>
+
+<form [formGroup]="manageCategoryForm" (ngSubmit)="onSubmit()">
+
+<div class="input-group">
+
+<label>🧺 Category</label>
+
+<input type="text"
+placeholder="Enter Category"
+formControlName="category">
+
+</div>
+
+<button type="submit" *ngIf="!editId">
+  Manage Category
+</button>
+
+<button type="button" *ngIf="editId" (click)="updateCategory()">
+  Update Category
+</button>
+
+</form>
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="category-table">
+
+<h3>Category List</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Category</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let cat of categories">
+
+<td>{{cat.cat_id}}</td>
+<td>{{cat.category}}</td>
+
+<td>
+
+<button class="edit-btn"
+(click)="editCategory(cat)">
+Edit
+</button>
+
+<button class="delete-btn"
+(click)="deleteCategory(cat._id)">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+ 

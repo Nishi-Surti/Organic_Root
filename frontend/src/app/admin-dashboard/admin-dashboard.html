@@ -1,0 +1,147 @@
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <div class="header">
+      <h1>📊 Admin Dashboard</h1>
+  </div>
+    
+
+    <!-- Summary Cards -->
+    <div class="cards">
+
+      <div class="card">
+        <h3>Total Farmers</h3>
+        <p>{{ totalFarmers }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Products</h3>
+        <p>{{ totalProducts}}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p>{{ totalOrders }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Users</h3>
+        <p>{{totalUser}}</p>
+      </div>
+
+    </div>
+
+    <!-- Table Section -->
+    
+<div class="table-wrapper">
+
+<div class="table-header">
+
+<h2>Recent Orders</h2>
+
+<div class="table-controls">
+
+<select [(ngModel)]="selectedStatus">
+
+<option value="">All Status</option>
+<option value="Confirmed">Placed</option>
+<option value="Packed">Packed</option>
+<option value="Shipped">Shipped</option>
+<option value="Delivered">Delivered</option>
+<option value="Pending">Pending</option>
+<option value="Cancelled">Cancelled</option>
+
+</select>
+
+<input
+type="text"
+placeholder="Search order..."
+[(ngModel)]="searchText">
+
+</div>
+
+</div>
+
+
+<table class="admin-table">
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Product</th>
+<th>Price</th>
+<th>Farmer</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let order of paginatedOrders">
+
+<td>{{order.id}}</td>
+<td>{{order.customer}}</td>
+<td>{{order.product}}</td>
+<td>₹{{order.price}}</td>
+<td>{{order.farmer}}</td>
+
+<td>
+<span class="status confirmed" *ngIf="order.status=='Confirmed'">Placed</span>
+<span class="status packed" *ngIf="order.status=='Packed'">Packed</span>
+<span class="status shipped" *ngIf="order.status=='Shipped'">Shipped</span>
+<span class="status delivered" *ngIf="order.status=='Delivered'">Delivered</span>
+<span class="status pending" *ngIf="order.status=='Pending'">Pending</span>
+<span class="status cancelled" *ngIf="order.status=='Cancelled'">Cancelled</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+  <!-- PENDING FARMERS -->
+ <div class="pagination">
+
+<button (click)="changePage(currentPage-1)" [disabled]="currentPage==1">
+Prev
+</button>
+
+<button
+*ngFor="let p of pages"
+(click)="changePage(p)"
+[class.active]="currentPage==p">
+
+{{p}}
+
+</button>
+
+<button
+(click)="changePage(currentPage+1)"
+[disabled]="currentPage==pages.length">
+
+Next
+</button>
+
+</div>
+
+  <!-- QUICK ACTIONS -->
+
+
+  </div>
+
+    <div class="quick-actions">
+
+    <h2>Quick Actions</h2>
+
+    <div class="action-buttons">
+
+      <button (click)="navigateAndClose('/admin/farmer-approval')">Approve Farmers</button>
+      <button (click)="navigateAndClose('/admin/admin-order')">View Orders</button>
+      <button (click)="navigateAndClose('/admin/admin-product')">Manage Products</button>
+
+    </div>
+
+  </div>
+</div>

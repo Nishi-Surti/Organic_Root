@@ -1,0 +1,395 @@
+/* PAGE */
+
+.frt-page{
+padding:30px;
+font-family:Poppins;
+background:#f6f9f7;
+
+}
+
+/* TOP BAR */
+
+.top-bar{
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:25px;
+}
+
+.back-btn{
+background:#2e7d32;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:#1b5e20;
+}
+
+.title-area{
+flex:1;
+text-align:center;
+}
+
+.title-area h1{
+margin:0;
+color:#1b5e20;
+}
+
+.title-area p{
+margin:3px 0;
+color:#555;
+}
+
+/* GRID */
+
+.frt-grid{
+display:grid;
+padding: 50px;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:30px;
+}
+
+/* CARD */
+
+.frt-card{
+background:rgba(1, 255, 90, 0.078);
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transition:0.3s;
+cursor:pointer;
+}
+
+.frt-card:hover{
+transform:translateY(-8px);
+box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* IMAGE */
+
+.img-box{
+height:170px;
+overflow:hidden;
+}
+
+.img-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.4s;
+}
+
+.frt-card:hover img{
+transform:scale(1.1);
+}
+
+/* INFO */
+
+.frt-info{
+padding:15px;
+text-align:center;
+}
+
+.frt-info h3{
+margin:5px 0;
+font-size:20px;
+}
+
+.price{
+color:#2e7d32;
+font-weight:600;
+margin-bottom:12px;
+}
+
+.price span{
+color:#777;
+font-weight:400;
+}
+
+/* BUTTON GROUP */
+
+.btn-group{
+display:flex;
+gap:10px;
+padding: 5px;
+}
+
+/* ADD TO CART */
+
+.cart-btn{
+flex:1;
+background:#4CAF50;
+border:none;
+color:white;
+padding: 8px;
+border-radius: 20px;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
+}
+
+.cart-btn:hover{
+background:#2e7d32;
+}
+
+/* BUY NOW */
+
+.buy-btn{
+flex:1;
+background:#ff9800;
+border:none;
+color:white;
+padding:8px;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
+}
+
+.buy-btn:hover{
+background:#e68900;
+}
+
+/* RESPONSIVE */
+/* PAGE */
+
+.frt-page{
+padding:30px;
+font-family:Poppins;
+background:#f6f9f7;
+
+}
+
+/* TOP BAR */
+
+.top-bar{
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:25px;
+}
+
+.back-btn{
+background:#2e7d32;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:20px;
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:#1b5e20;
+}
+
+.title-area{
+flex:1;
+text-align:center;
+}
+
+.title-area h1{
+margin:0;
+color:#1b5e20;
+}
+
+.title-area p{
+margin:3px 0;
+color:#555;
+}
+
+/* GRID */
+
+.frt-grid{
+display:grid;
+padding: 50px;
+grid-template-columns:repeat(5,1fr);
+gap:30px;
+}
+
+/* CARD */
+
+.frt-card{
+background:rgba(1, 255, 90, 0.078);
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transition:0.3s;
+cursor:pointer;
+}
+
+.frt-card:hover{
+transform:translateY(-8px);
+box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* IMAGE */
+
+.img-box{
+height:170px;
+overflow:hidden;
+}
+
+.img-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.4s;
+}
+
+.frt-card:hover img{
+transform:scale(1.1);
+}
+
+/* INFO */
+
+.frt-info{
+padding:15px;
+text-align:center;
+}
+
+.frt-info h3{
+margin:5px 0;
+font-size:20px;
+}
+
+.price{
+color:#2e7d32;
+font-weight:600;
+margin-bottom:12px;
+}
+
+.price span{
+color:#2e7d32;
+font-weight:400;
+}
+
+/* BUTTON GROUP */
+
+.btn-group{
+display:flex;
+gap:10px;
+padding: 5px;
+}
+
+/* ADD TO CART */
+
+.cart-btn{
+flex:1;
+background:#267429;
+border:none;
+color:white;
+padding: 8px;
+border-radius: 20px;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
+}
+
+.cart-btn:hover{
+background:#2e7d32;
+}
+
+/* BUY NOW */
+
+.buy-btn{
+flex:1;
+background:#ff9800;
+border:none;
+color:white;
+padding:8px;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
+}
+
+.buy-btn:hover{
+background:#e68900;
+}
+
+/* RESPONSIVE */
+/* ================= MOBILE RESPONSIVE (PRO) ================= */
+@media(max-width:768px){
+
+  .frt-page{
+    padding:15px 10px;
+  }
+
+  /* TOP BAR */
+  .top-bar{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  .back-btn{
+    font-size:14px;
+    padding:6px 12px;
+  }
+
+  .title-area{
+    text-align:center;
+  }
+
+  .title-area h1{
+    font-size:22px;
+  }
+
+  .title-area p{
+    font-size:14px;
+  }
+
+  /* GRID */
+  .frt-grid{
+    padding:10px;
+    grid-template-columns:repeat(2,1fr); /* 🔥 2 cards */
+    gap:12px;
+  }
+
+  /* CARD */
+  .frt-card{
+    border-radius:12px;
+  }
+
+  /* IMAGE */
+  .img-box{
+    height:120px;
+  }
+
+  /* INFO */
+  .frt-info{
+    padding:10px;
+  }
+
+  .frt-info h3{
+    font-size:14px;
+  }
+
+  .price{
+    font-size:13px;
+    margin-bottom:8px;
+  }
+
+  /* BUTTON GROUP */
+  .btn-group{
+    flex-direction:column;
+    gap:6px;
+  }
+
+  /* BUTTONS */
+  .cart-btn,
+  .buy-btn{
+    font-size:13px;
+    padding:6px;
+    border-radius:15px;
+  }
+
+}

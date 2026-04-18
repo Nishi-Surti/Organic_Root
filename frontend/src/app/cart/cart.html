@@ -1,0 +1,59 @@
+<div class="cart-page">
+
+  <button class="back-btn" onclick="history.back()">
+    ⬅ Back
+  </button>
+
+  <h2>🛒 My Cart</h2>
+
+  <div *ngFor="let item of cartItems" class="cart-card">
+
+    <img [src]="'http://localhost:3000'+item.pimg">
+
+    <div class="cart-info">
+
+      <h3>{{item.pname}}</h3>
+
+      <p class="price-row">
+        <span class="label">Price:</span>
+        <span>₹{{item.price}} / {{item.priceUnit}}</span>
+      </p>
+
+      <div class="qty-box">
+        <span class="label">Quantity:</span>
+
+        <button class="qty-btn" (click)="decrease(item)">−</button>
+
+        <span class="qty-value">
+          {{item.qty}} / {{item.quantityUnit}}
+        </span>
+
+        <button class="qty-btn" (click)="increase(item)">+</button>
+      </div>
+
+      <p class="item-total">
+        Total: ₹{{item.price * item.qty}}
+      </p>
+
+    </div>
+
+    <div class="cart-actions">
+      <button class="remove-btn" (click)="remove(item.product_id)">
+        ❌ Remove
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ✅ NEW: TOTAL + BUY NOW -->
+  <div class="cart-summary" *ngIf="cartItems.length > 0">
+
+    <h3>Total Amount: ₹{{getTotal()}}</h3>
+
+    <button class="buy-all-btn" (click)="buyAll()">
+      ⚡ Buy All Products
+    </button>
+
+  </div>
+
+</div>

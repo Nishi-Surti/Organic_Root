@@ -1,0 +1,51 @@
+.logo h2{
+  margin: 10px;
+}
+
+.far-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #94d49a;
+  color: #0a361a;
+  padding:5px 30px;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.far-nav{
+  align-items: center;
+  display: flex;
+  gap: 25px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.far-nav a{
+  color:#0a361a;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.far-nav a:hover {
+  color: #0a361a;
+  transition:  0.3s ease;
+  transform: translateY(-5px);
+}
+
+.log-btn{
+  background: #579e51;
+  color: white;
+  border-radius: 20px;
+  padding:8px 18px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.log-btn:hover{
+  color:#55ab59;
+  background: white;
+  border: 2px solid #2c7226;
+}

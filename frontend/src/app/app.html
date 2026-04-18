@@ -1,0 +1,16 @@
+<div class="app-container" [ngClass]="{'with-sidebar': authService.isLoggedIn}">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <app-navbar *ngIf="!authService.isLoggedIn"></app-navbar>
+  <!-- <app-dashboard-navbar></app-dashboard-navbar> -->
+
+  <div class="page-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer *ngIf="!authService.isLoggedIn"></app-footer>
+
+</div>

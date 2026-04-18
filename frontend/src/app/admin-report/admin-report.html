@@ -1,0 +1,68 @@
+<div class="report-container">
+
+  <div class="header">
+
+    <h2>📊 Role Wise Reports</h2>
+
+    <select (change)="changeRole($event)">
+      <option value="farmer">Farmer Reports</option>
+      <option value="consumer">Consumer Reports</option>
+      <option value="admin">Platform Reports</option>
+    </select>
+
+  </div>
+
+
+  <!-- FARMER REPORT -->
+
+  <div *ngIf="selectedRole == 'farmer'" class="charts-grid">
+
+    <div class="chart-card">
+      <h3>Farmer Registrations</h3>
+      <canvas id="farmerRegisterChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Farmer Product Sales</h3>
+      <canvas id="farmerSalesChart"></canvas>
+    </div>
+
+  </div>
+
+
+
+  <!-- CONSUMER REPORT -->
+
+  <div *ngIf="selectedRole == 'consumer'" class="charts-grid">
+
+    <div class="chart-card">
+      <h3>Consumer Registrations</h3>
+      <canvas id="consumerChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Consumer Orders</h3>
+      <canvas id="orderChart"></canvas>
+    </div>
+
+  </div>
+
+
+
+  <!-- ADMIN REPORT -->
+
+  <div *ngIf="selectedRole == 'admin'" class="charts-grid">
+
+    <div class="chart-card">
+      <h3>Platform Growth</h3>
+      <canvas id="growthChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Total Revenue</h3>
+      <canvas id="revenueChart"></canvas>
+    </div>
+
+  </div>
+
+</div>

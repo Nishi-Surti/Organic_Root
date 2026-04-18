@@ -1,0 +1,79 @@
+<div class="admin-user-container">
+
+  <div class="filter-bar">
+
+<select [(ngModel)]="userType" (change)="onRoleChange()">
+  <option value="farmer">👨‍🌾 Farmers</option>
+  <option value="consumer">🧑 Consumers</option>
+</select>
+
+</div>
+
+  <div class="page-header">
+    <h2>
+  👥 {{ userType === 'farmer' ? 'Farmer Management' : 'Consumer Management' }}
+</h2>
+    <p>Manage all farmers and consumers</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="user-table">
+
+      <thead>
+        <tr>
+          <th *ngIf="userType === 'farmer'">Profile</th>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+  <tr *ngFor="let user of users">
+
+    <td *ngIf="userType === 'farmer'">
+      <img [src]="'http://localhost:3000/uploads/' + user.fimage"class="profile">
+    </td>
+
+    <!-- NAME -->
+    <td>
+      {{ user.farmerName || user.cname || user.name }}
+    </td>
+
+    <!-- EMAIL -->
+    <td>
+      {{ user.mobile }}
+    </td>
+
+    <!-- ROLE -->
+    <td 
+      class="role"
+      [ngClass]="userType === 'farmer' ? 'farmer' : 'consumer'">
+      {{ userType === 'farmer' ? 'Farmer' : 'Consumer' }}
+    </td>
+
+    <!-- STATUS -->
+    <td class="status active">
+      Active
+    </td>
+
+    <!-- DATE -->
+    
+
+    <!-- ACTION -->
+    <td>
+      <button class="edit">Edit</button>
+      <button class="delete">Delete</button>
+    </td>
+
+  </tr>
+
+</tbody>
+
+    </table>
+  </div>
+
+</div>

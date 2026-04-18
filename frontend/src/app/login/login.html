@@ -1,0 +1,85 @@
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <h2>Login</h2>
+
+    <!-- Role Buttons -->
+    <div class="role-buttons">
+      <button (click)="selectRole('farmer')" [class.active]="selectedRole==='farmer'">Farmer</button>
+      <button (click)="selectRole('consumer')" [class.active]="selectedRole==='consumer'">Consumer</button>
+      <button (click)="selectRole('admin')" [class.active]="selectedRole==='admin'">Admin</button>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <!-- Mobile / Email Field -->
+  <div class="input-group" *ngIf="selectedRole !== 'admin'">
+    <i class="fa-solid fa-phone icon-left"></i>
+    <input type="tel"
+           formControlName="mobile"
+           placeholder="Mobile Number">
+    
+       <small class="error" *ngIf="loginForm.get('mobile')?.touched && loginForm.get('mobile')?.invalid">
+        <span class="error" *ngIf="loginForm.get('mobile')?.errors?.['required']"> Mobile no. is required </span>
+        <span class="error" *ngIf="loginForm.get('mobile')?.errors?.['pattern']">
+            Enter valid 10 digit mobile number
+        </span>
+      </small>
+  </div>
+
+  <div class="input-group" *ngIf="selectedRole === 'admin'">
+    <i class="fa-solid fa-envelope icon-left"></i>
+    <input type="email"
+           formControlName="email"
+           placeholder="Email Address">
+
+     <small class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors">
+
+  <span *ngIf="loginForm.get('email')?.errors?.['required']">
+    Email Id is required
+  </span>
+
+</small>
+  </div>
+
+  <!-- Password -->
+  <div class="input-group">
+    <i class="fa-solid fa-lock icon-left"></i>
+
+    <input [type]="showPassword ? 'text' : 'password'"
+           formControlName="password"
+           placeholder="Password">
+
+  <i class="fa-solid icon-right"
+   [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+   (click)="togglePassword()">
+</i>
+
+     <small class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+
+  <span *ngIf="loginForm.get('password')?.errors?.['required']">
+    Password is required
+  </span>
+
+</small>
+
+  </div>
+
+  <button class="login-btn">Login</button>
+
+</form>
+
+    <div class="extra-links">
+      <a routerLink="/forgot-password">Forgot Password?</a>
+      <p>First time user?
+        <a routerLink="/regis">Register Here</a>
+      </p>
+    </div>
+
+  </div>
+
+</div>

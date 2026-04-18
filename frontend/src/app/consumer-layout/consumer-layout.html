@@ -1,0 +1,57 @@
+<div class="consumer-layout">
+  
+<!-- HAMBURGER -->
+<div class="hamburger" (click)="toggleSidebar()">
+  ☰
+</div>
+
+ <div class="overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" [class.open]="isSidebarOpen">
+
+    <div class="logo">
+      <img src="/assets/logo.png" />
+  </div>
+   
+<span class="close" (click)="closeSidebar()">✕</span>
+    <h2 class="logo">👨{{consumerName}}</h2>
+    <ul>
+
+  <li>
+    <a [routerLink]="['/consumer/consumer-dashboard']" routerLinkActive="active" (click)="handleNavigation()">
+      📊 Dashboard
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/consumer/cart']" routerLinkActive="active" (click)="handleNavigation()">
+       🛒 Cart
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/consumer/consumer-order']" routerLinkActive="active" (click)="handleNavigation()">
+      📦 Orders
+    </a>
+  </li>
+
+  <li>
+    <a [routerLink]="['/consumer/consumer-profile']" routerLinkActive="active" (click)="handleNavigation()">
+        👤 Profile
+    </a>
+  </li>
+
+</ul>
+
+    <button class="logout" (click)="logout()">Logout</button>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</div>
+
+

@@ -1,0 +1,142 @@
+
+ <section class="carousel" class="carousel animate zoom-in">
+
+  <div class="slides"
+       [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+
+    <div class="slide slide1">
+      <div class="overlay">
+        <h1>Fresh From Farmers</h1>
+        <p>Buy directly from local farmers</p>
+        <button routerLink="/about" class="hero-btn">
+          Explore Now
+        </button>
+      </div>
+    </div>
+
+    <div class="slide slide2">
+      <div class="overlay">
+        <h1>Organic & Healthy</h1>
+        <p>Pure and chemical-free produce</p>
+        <button routerLink="/product" class="hero-btn">
+          Shop Organic
+        </button>
+      </div>
+    </div>
+
+    <div class="slide slide3">
+      <div class="overlay">
+        <h1>Fair Prices</h1>
+        <p>No middlemen, more profit to farmers</p>
+        <button routerLink="/regis" class="hero-btn">
+          Join Us
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+ <button class="nav-btn prev" (click)="prev()">
+  <span class="arrow">&#10094;</span>
+</button>
+
+<button class="nav-btn next" (click)="next()">
+  <span class="arrow">&#10095;</span>
+</button>
+
+  <!-- Indicators -->
+  <div class="dots">
+    <span *ngFor="let dot of [0,1,2]; let i = index"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)">
+    </span>
+  </div>
+
+</section>
+<section class="features-dark" class="features-dark animate">
+  <h2 class="feature-heading">Why Choose Organic Root ?</h2>
+
+  <div class="feature-wrapper">
+
+    <div class="feature-box">
+      <div class="icon-circle">🥬</div>
+      <h3>Fresh & Organic</h3>
+      <p>Pure, chemical-free produce straight from farms.</p>
+    </div>
+
+    <div class="feature-box">
+      <div class="icon-circle">💰</div>
+      <h3>Fair Price</h3>
+      <p>Affordable for customers, profitable for farmers.</p>
+    </div>
+
+    <div class="feature-box">
+      <div class="icon-circle">🌱</div>
+      <h3>100% Organic</h3>
+      <p>Healthy food with transparency and trust.</p>
+    </div>
+
+    <div class="feature-box">
+      <div class="icon-circle">🚚</div>
+      <h3>Fast Delivery</h3>
+      <p>Quick doorstep delivery from nearby farms.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="community-modern" class="community-modern animate fade-right">
+
+  <div class="community-overlay"></div>
+
+  <div class="community-content">
+    <h2>Join the Organic Root 🌿</h2>
+    <p>
+      Whether you are a Farmer or a Consumer,
+      Organic Root connects you directly with trust & transparency.
+    </p>
+
+    <div class="cta-buttons">
+      <button routerLink="/login" class="primary-cta">
+        Get Started
+      </button>
+
+      <button routerLink="/regis" class="secondary-cta">
+        Join as Farmer
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-modern" class="testimonial-modern animate">
+  <h2>💬 Consumer Feedback's</h2>
+
+  <div class="reviews">
+
+    <div class="review-card active">
+      <p>“Very fresh vegetables and fast delivery. Love supporting farmers!”</p>
+      <div class="review-user">
+        <div class="avatar">A</div>
+        <div>
+          <h4>Aditi</h4>
+          <span>Consumer • Ahmedabad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <p>“Best platform for organic food. Highly recommended!”</p>
+      <div class="review-user">
+        <div class="avatar">R</div>
+        <div>
+          <h4>Ramesh</h4>
+          <span>Consumer • Surat</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

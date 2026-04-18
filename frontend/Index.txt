@@ -1,0 +1,17 @@
+title page
+college certificates
+company certificates
+acknowledgment
+index
+1 introduction (include system info. , system specifications (software req. , hardware req.))
+2 objectives
+3 scope
+4 Requirement engineering
+    4.1 requirement collection
+    4.2 diagramgs
+    4.3 data dictionary
+5 user interface
+6 system testing
+7 timeline charts
+8 future & conclusion
+references

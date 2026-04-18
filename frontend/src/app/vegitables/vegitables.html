@@ -1,0 +1,52 @@
+
+  <div class="veg-page">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+
+    <button class="back-btn" onclick="history.back()">
+      ⬅ Back
+    </button>
+
+    <div class="title-area">
+      <h1>Fresh Vegetables</h1>
+      <p>Direct from farmers to your home.</p>
+    </div>
+
+  </div>
+
+
+  <!-- PRODUCT GRID -->
+  <div class="veg-grid">
+
+    <div class="veg-card" *ngFor="let v of vegetables">
+
+      <div class="img-box">
+        <img [src]="'http://localhost:3000' + v.pimg">
+      </div>
+
+      <div class="veg-info">
+
+        <h3>{{ v.pname }}</h3>
+
+        <p class="price">₹{{ v.price }} <span>/ {{ v.priceUnit }}</span></p>
+
+        <div class="btn-group">
+
+          <button class="cart-btn" (click)="addToCart(v)">
+           Add to Cart
+          </button>
+
+          <button class="buy-btn" (click)="buyNow(v)">
+           Buy Now
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

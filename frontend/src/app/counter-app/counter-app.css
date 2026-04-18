@@ -1,0 +1,40 @@
+.btn{
+    width: 80px;
+    height: 80px;
+    border:2px solid black;
+    border-radius: 50%;
+    margin: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+.bg-red{
+    background-color: brown;
+    color: aliceblue;
+}
+
+.bg-yellow{
+    background-color: crimson;
+    color: burlywood;
+}
+
+.bg-blue{
+    background-color: rgb(81, 35, 43);
+    color:bisque;
+}
+
+.btn:hover{
+    border: 2px solid white;
+}
+.h2{
+    font-size: 30px;
+    margin-bottom: 30px;
+    background-color: darkolivegreen;
+    width: 80px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 50%;
+}
