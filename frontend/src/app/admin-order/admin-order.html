@@ -6,9 +6,9 @@
     <div class="controls">
       <input type="text"
              placeholder="🔍 Search Customer..."
-             [(ngModel)]="searchText" class="search">
+             [(ngModel)]="searchText" class="search" (input)="onFilterChange()">
 
-      <select [(ngModel)]="selectedStatus" class="status">
+      <select [(ngModel)]="selectedStatus" class="status" (change)="onFilterChange()">
         <option value="All">All Status</option>
         <option>Pending</option>
         <option>Confirmed</option>
@@ -59,7 +59,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let order of filteredOrders">
+        <tr *ngFor="let order of paginatedOrders">
           <td data-label="ID">{{order.id}}</td>
           <td data-label="Customer">{{order.customer}}</td>
           <td data-label="Products">{{order.products}}</td>
@@ -87,5 +87,25 @@
       </tbody>
     </table>
   </div>
+
+  <div class="pagination">
+
+  <button (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1">
+    ⬅ Prev
+  </button>
+
+  <button *ngFor="let page of [].constructor(totalPages); let i = index"
+          (click)="changePage(i + 1)"
+          [class.active]="currentPage === i + 1">
+    {{ i + 1 }}
+  </button>
+
+  <button (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage === totalPages">
+    Next ➡
+  </button>
+
+</div>
 
 </div>

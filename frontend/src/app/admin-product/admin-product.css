@@ -13,7 +13,7 @@
 }
 
 .header h2 {
-   font-size: 30px;
+  font-size: 30px;
 }
 
 .header input {
@@ -33,7 +33,7 @@
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow-x: auto;
 }
 
@@ -48,7 +48,8 @@ thead {
   font-size: 18px;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   text-align: center;
   vertical-align: middle;
@@ -102,6 +103,30 @@ img {
 
 .delete:hover {
   background: #c0392b;
+}
+
+.pagination {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 5px;
+  padding: 6px 12px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button.active {
+  background: green;
+  color: white;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

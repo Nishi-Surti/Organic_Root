@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consumer-offers',
@@ -9,18 +10,35 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
   templateUrl: './consumer-offers.html',
   styleUrl: './consumer-offers.css',
 })
-export class ConsumerOffers implements OnInit{
+export class ConsumerOffers{
+  constructor(
+    private http: HttpClient,
+    private cd: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
-  constructor(private http: HttpClient, private cd: ChangeDetectorRef){}
+  offers = [
+  {
+    name: "Organic Tomato",
+    originalPrice: 60,
+    offerPrice: 40,
+    discount: 33,
+    image: "assets/tomato.jpg"
+  },
+  {
+    name: "Fresh Potato",
+    originalPrice: 50,
+    offerPrice: 35,
+    discount: 30,
+    image: "assets/potato.jpg"
+  }
+];
 
-  offers:any[] = [];
+buyNow(product: any) {
+  // Direct order logic
+  console.log("Buying:", product);
 
-ngOnInit(){
-  this.http.get("http://localhost:3000/api/offers")
-    .subscribe((res:any)=>{
-      console.log("OFFERS DATA:", res); // 🔥 DEBUG
-      this.offers = res;
-      this.cd.detectChanges();
-    });
+  // You can redirect to checkout page
+  this.router.navigate(['/consumer/checkout'], { state: { product } });
 }
 }

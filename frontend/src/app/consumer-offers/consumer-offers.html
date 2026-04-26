@@ -2,23 +2,31 @@
 
   <h2>🌿 Today’s Fresh Deals</h2>
 
-  <div class="offer-grid">
+ <section class="offer-section">
+  <h2>🔥 Special Organic Offers</h2>
 
-    <div class="offer-card" *ngFor="let item of offers">
+  <div class="offer-container">
 
-      <img [src]="item.image">
+    <div class="offer-card" *ngFor="let product of offers">
+      <img [src]="product.image" alt="product">
 
-      <h3>{{item.name}}</h3>
+      <h3>{{product.name}}</h3>
 
-      <p class="old-price">₹{{item.oldPrice}}</p>
-      <p class="new-price">₹{{item.newPrice}}</p>
+      <p class="price">
+        <span class="old-price">₹{{product.originalPrice}}</span>
+        <span class="new-price">₹{{product.offerPrice}}</span>
+      </p>
 
-      <span class="discount">{{item.discount}}% OFF</span>
+      <p class="discount">
+        {{product.discount}}% OFF
+      </p>
 
-      <button class="cart-btn">Add to Cart</button>
-
+      <button (click)="buyNow(product)">
+        Buy Now
+      </button>
     </div>
 
   </div>
+</section>
 
 </div>

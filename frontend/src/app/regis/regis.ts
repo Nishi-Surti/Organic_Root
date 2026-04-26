@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router , RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Register } from '../services/register';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-regis',
-  imports: [ReactiveFormsModule, CommonModule, FormsModule,RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, RouterModule],
   standalone: true,
   templateUrl: './regis.html',
   styleUrl: './regis.css',
@@ -44,9 +44,13 @@ export class Regis {
       // Consumer
       address: [''],
 
-      city : ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]],
+      city: [''],
+      
+      pincode: [''],
 
-      pincode : ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
+      // city : ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]],
+
+      // pincode : ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
 
       // ✅ PASSWORD → min 6 + strong
       password: [
@@ -62,50 +66,38 @@ export class Regis {
     });
   }
 
- selectRole(selectedRole: string) 
- {
-  this.role = selectedRole;
+  selectRole(selectedRole: string) {
+    this.role = selectedRole;
 
-  if (selectedRole === 'farmer') {
+    if (selectedRole === 'farmer') {
+      this.registerForm
+        .get('village')
+        ?.setValidators([Validators.required, Validators.pattern('^[A-Za-z ]+$')]);
 
-    this.registerForm.get('village')?.setValidators([
-      Validators.required,
-      Validators.pattern('^[A-Za-z ]+$')
-    ]);
+      this.registerForm.get('address')?.clearValidators();
+    } else {
+      this.registerForm
+        .get('address')
+        ?.setValidators([Validators.required, Validators.pattern('^[A-Za-z0-9 ,.-]+$')]);
 
-    this.registerForm.get('address')?.clearValidators();
+      this.registerForm
+        .get('city')
+        ?.setValidators([Validators.required, Validators.pattern('^[A-Za-z]+$')]);
 
-  } 
-  else 
-  {
+      this.registerForm
+        .get('pincode')
+        ?.setValidators([Validators.required, Validators.pattern('^[0-9]+$')]);
 
-    this.registerForm.get('address')?.setValidators([
-      Validators.required,
-      Validators.pattern('^[A-Za-z0-9 ,.-]+$')
-    ]);
+      this.registerForm.get('village')?.clearValidators();
+    }
 
-    this.registerForm.get('city')?.setValidators([
-      Validators.required,
-      Validators.pattern('^[A-Za-z]+$')
-    ]);
-
-    this.registerForm.get('pincode')?.setValidators([
-      Validators.required,
-      Validators.pattern('^[0-9]+$')
-    ]);
-
-    this.registerForm.get('village')?.clearValidators();
+    this.registerForm.get('village')?.updateValueAndValidity();
+    this.registerForm.get('address')?.updateValueAndValidity();
+    this.registerForm.get('city')?.updateValueAndValidity();
+    this.registerForm.get('pincode')?.updateValueAndValidity();
   }
-
-  this.registerForm.get('village')?.updateValueAndValidity();
-  this.registerForm.get('address')?.updateValueAndValidity();
-  this.registerForm.get('city')?.updateValueAndValidity();
-  this.registerForm.get('pincode')?.updateValueAndValidity();
-}
-  onSubmit() 
-  {
-    if (this.registerForm.invalid) 
-    {
+  onSubmit() {
+    if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
     }
@@ -129,6 +121,7 @@ export class Regis {
 
       this.regService.registerFarmer(formData).subscribe({
         next: () => {
+          // console.log('FORM VALID:', this.registerForm.valid);
           alert('Farmer Registration Successfully');
           this.router.navigate(['/login']);
         },
@@ -142,8 +135,8 @@ export class Regis {
         name: this.registerForm.get('name')?.value,
         mobile: this.registerForm.get('mobile')?.value,
         address: this.registerForm.get('address')?.value,
-        city : this.registerForm.get('city')?.value,
-        pincode : this.registerForm.get('pincode')?.value,
+        city: this.registerForm.get('city')?.value,
+        pincode: this.registerForm.get('pincode')?.value,
         password: this.registerForm.get('password')?.value,
       };
 

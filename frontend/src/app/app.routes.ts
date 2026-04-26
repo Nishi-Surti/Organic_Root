@@ -23,6 +23,7 @@ import { AdminProduct } from './admin-product/admin-product';
 import { AdminOrder } from './admin-order/admin-order';
 import { AdminUser } from './admin-user/admin-user';
 import { AdminReport } from './admin-report/admin-report';
+import { AdminQueriesComponent } from './admin-queries/admin-queries';
 
 import { FarmerLayout } from './farmer-layout/farmer-layout';
 import { FarmerDashboard } from './farmer-dashboard/farmer-dashboard';
@@ -71,7 +72,8 @@ export const routes: Routes = [
                 {path: 'admin-product', component:AdminProduct},
                 {path: 'admin-order', component: AdminOrder},
                 {path: 'admin-user', component: AdminUser},
-                {path : 'admin-report', component: AdminReport}
+                {path : 'admin-report', component: AdminReport},
+                {path: 'admin-queries', component: AdminQueriesComponent}
         ]
     },
     {path: 'farmers', component: FarmerLayout,

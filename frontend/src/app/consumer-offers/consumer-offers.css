@@ -1,18 +1,67 @@
-.offer-card{
-  background:white;
-  border-radius:14px;
-  padding:15px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
-  transition:0.3s;
+.offer-section {
+  padding: 40px;
+  background: #f5fff5;
+  text-align: center;
 }
 
-.offer-card:hover{
-  transform:translateY(-5px);
+.offer-section h2 {
+  color: #2e7d32;
+  margin-bottom: 30px;
 }
 
-.discount{
-  background:#e53935;
-  color:white;
-  padding:4px 10px;
-  border-radius:20px;
+.offer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.offer-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.offer-card:hover {
+  transform: scale(1.05);
+}
+
+.offer-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.price {
+  margin: 10px 0;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+  margin-right: 10px;
+}
+
+.new-price {
+  color: green;
+  font-weight: bold;
+}
+
+.discount {
+  color: red;
+  font-weight: bold;
+}
+
+button {
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: darkgreen;
 }

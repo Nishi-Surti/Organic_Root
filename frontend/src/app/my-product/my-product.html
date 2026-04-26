@@ -1,5 +1,4 @@
 <div class="dashboard">
-
   <!-- Header -->
   <div class="header">
     <h2>My Products</h2>
@@ -8,59 +7,48 @@
 
   <!-- Category Buttons -->
   <div class="category-scroll">
-    <button *ngFor="let cat of categories"
-            (click)="filterCategory(cat)"
-            [class.active]="selectedCategory === cat">
-      {{cat}}
+    <button
+      *ngFor="let cat of categories"
+      (click)="filterCategory(cat)"
+      [class.active]="selectedCategory === cat"
+    >
+      {{ cat }}
     </button>
   </div>
 
   <!-- Empty State -->
-  <div *ngIf="filteredProducts.length === 0" class="empty">
-    📦 No Products Added Yet
-  </div>
+  <div *ngIf="filteredProducts.length === 0" class="empty">📦 No Products Added Yet</div>
 
   <!-- Product Cards -->
   <div class="card-container">
-
     <div class="product-card" *ngFor="let product of paginatedProducts">
+      <img [src]="'http://localhost:3000' + product.pimg" />
 
-      <img [src]="'http://localhost:3000'+ product.pimg" />
+      <h3>{{ product.pname }}</h3>
 
-      <h3>{{product.pname}}</h3>
+      <p class="price">₹ {{ product.price }} / {{ product.priceUnit }}</p>
 
-      <p class="price">₹ {{product.price}} {{product.priceUnit}}</p>
-
-      <p class="category">{{product.category}}</p>
+      <p class="category">{{ product.category }}</p>
 
       <div class="buttons">
         <button class="edit" (click)="openEdit(product)">✏ Edit</button>
-        <button class="delete"  (click)="openDelete(product.product_id)">
-          🗑 Delete
-        </button>
+        <button class="delete" (click)="openDelete(product.product_id)">🗑 Delete</button>
       </div>
-
     </div>
-
   </div>
 
   <!-- PAGINATION CONTROLS -->
   <div class="pagination-controls" *ngIf="totalPages > 1">
     <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
-    <button *ngFor="let p of pageNumbers" 
-            [class.active]="p === currentPage" 
-            (click)="setPage(p)">
-      {{p}}
+    <button *ngFor="let p of pageNumbers" [class.active]="p === currentPage" (click)="setPage(p)">
+      {{ p }}
     </button>
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
-
 </div>
 
 <div class="delete-modal" *ngIf="showDeleteModal">
-
   <div class="modal-box">
-
     <h3>Delete Product</h3>
 
     <p>Are you sure you want to delete this product?</p>
@@ -69,24 +57,18 @@
       <button class="cancel" (click)="closeDelete()">Cancel</button>
       <button class="confirm" (click)="confirmDelete()">Delete</button>
     </div>
-
   </div>
-
 </div>
 
 <div class="edit-modal" *ngIf="showEditModal">
-
   <div class="modal-content">
-
     <h2>Edit Product</h2>
 
     <form (ngSubmit)="updateProduct()">
-
       <div class="form-grid">
-
         <div class="form-group">
           <label>Product Name</label>
-          <input type="text" [(ngModel)]="editProductData.pname" name="pname">
+          <input type="text" [(ngModel)]="editProductData.pname" name="pname" />
         </div>
 
         <div class="form-group">
@@ -101,7 +83,7 @@
 
         <div class="form-group">
           <label>Price</label>
-          <input type="number" [(ngModel)]="editProductData.price" name="price">
+          <input type="number" [(ngModel)]="editProductData.price" name="price" />
         </div>
 
         <div class="form-group">
@@ -116,7 +98,7 @@
 
         <div class="form-group">
           <label>Quantity</label>
-          <input type="number" [(ngModel)]="editProductData.quantity" name="quantity">
+          <input type="number" [(ngModel)]="editProductData.quantity" name="quantity" />
         </div>
 
         <div class="form-group">
@@ -128,16 +110,12 @@
             <option>Piece</option>
           </select>
         </div>
-
       </div>
 
       <div class="modal-buttons">
         <button type="button" class="cancel" (click)="closeEdit()">Cancel</button>
         <button type="submit" class="update">Update</button>
       </div>
-
     </form>
-
   </div>
-
 </div>

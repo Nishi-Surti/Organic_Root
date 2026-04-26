@@ -110,4 +110,17 @@ get filteredOrders()
 
 }
 
+get totalPages(): number {
+  return Math.ceil(this.filteredOrders.length / this.itemsPerPage);
+}
+
+changePage(page: number) {
+  if (page < 1 || page > this.totalPages) return;
+  this.currentPage = page;
+}
+
+onFilterChange() {
+  this.currentPage = 1;
+}
+
 }

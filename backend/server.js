@@ -51,6 +51,9 @@ app.use('/api', farmerApprovalRoutes);
 const earningRoutes = require("./routes/farmer-earning");
 app.use("/api", earningRoutes);
 
+const contactRoutes = require("./routes/contact");
+app.use("/api", contactRoutes);
+
 const LoginSchema = new mongoose.Schema({
   mobile: String,
   email: String,

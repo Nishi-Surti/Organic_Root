@@ -1,0 +1,63 @@
+<div class="admin-queries-container">
+  <div class="header">
+    <h2>User Queries</h2>
+    <p>Manage and respond to messages from the contact page.</p>
+  </div>
+
+  <div class="queries-grid">
+    <div class="query-card" *ngFor="let query of queries">
+      <div class="query-header">
+        <div class="user-info">
+          <div class="avatar">{{ query.name ? query.name.charAt(0).toUpperCase() : 'U' }}</div>
+          <div>
+            <h3>{{ query.name }}</h3>
+            <span class="user-contact">📞 {{ query.mobile || query.email || 'N/A' }}</span>
+          </div>
+        </div>
+        <div class="date-badge">
+          {{ query.createdAt | date:'mediumDate' }}
+        </div>
+      </div>
+      
+      <div class="query-body">
+        <h4>Message:</h4>
+        <p class="query-message">{{ query.message }}</p>
+      </div>
+
+      <div class="reply-section">
+        <ng-container *ngIf="query.reply; else replyForm">
+          <div class="replied-box">
+            <h4><i class="bx bx-check-circle"></i> Replied:</h4>
+            <p>{{ query.reply }}</p>
+          </div>
+        </ng-container>
+        <ng-template #replyForm>
+          <div class="reply-form">
+            <textarea 
+              [(ngModel)]="replyText[query._id]" 
+              placeholder="Type your reply here to send via SMS..." 
+              rows="3">
+            </textarea>
+            <button class="reply-btn" (click)="sendReply(query._id, query.mobile || query.email)">
+              <i class="bx bxs-send"></i> Send Reply
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    
+    <div class="empty-state" *ngIf="queries.length === 0">
+      <i class="bx bx-message-square-dots empty-icon"></i>
+      <h3>No queries found</h3>
+      <p>When users contact you, their messages will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div class="toast-container" *ngIf="toastMessage" [ngClass]="toastType">
+    <div class="toast-content">
+      <i class="bx" [ngClass]="toastType === 'success' ? 'bx-check-circle' : 'bx-error-circle'"></i>
+      <span>{{ toastMessage }}</span>
+    </div>
+  </div>
+</div>

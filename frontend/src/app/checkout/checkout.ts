@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { CartPage } from '../services/cart-page';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,13 +20,12 @@ import { QRCodeComponent } from 'angularx-qrcode';
   styleUrl: './checkout.css',
 })
 export class Checkout {
-
   constructor(
     private cart: CartPage,
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   products: any[] = [];
@@ -38,66 +43,83 @@ export class Checkout {
   showPaymentSuccess = false;
   showUPIPopup = false;
 
-  upiLink: string = "";
+  upiLink: string = '';
 
   ngOnInit() {
-
     // ✅ GET MULTIPLE PRODUCTS
     const data = this.cart.getBuyProduct();
 
-if (Array.isArray(data)) {
-  this.products = data;
-} else if (data) {
-  this.products = [data]; // 🔥 single object → array
-} else {
-  this.products = [];
-}
+    if (Array.isArray(data)) {
+      this.products = data;
+    } else if (data) {
+      this.products = [data]; // 🔥 single object → array
+    } else {
+      this.products = [];
+    }
 
     this.orderForm = this.fb.group({
       cname: [{ value: '', disabled: true }, Validators.required],
-      mobile: [{ value: '', disabled: true }, [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
+      mobile: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')],
+      ],
       address: [{ value: '', disabled: true }, Validators.required],
       city: [{ value: '', disabled: true }, Validators.required],
       pincode: [{ value: '', disabled: true }, Validators.required],
-      paymentMethod: ['cod']
+      paymentMethod: ['cod'],
     });
 
-    const c_id = localStorage.getItem("consumerId");
+    const c_id = localStorage.getItem('consumerId');
 
-    this.http.get(`http://localhost:3000/api/consumer/${c_id}`)
-      .subscribe((res: any) => {
-
-        this.orderForm.patchValue({
-          cname: res.name,
-          mobile: res.mobile,
-          address: res.address,
-          city: res.city,
-          pincode: res.pincode
-        });
-
+    this.http.get(`http://localhost:3000/api/consumer/${c_id}`).subscribe((res: any) => {
+      this.orderForm.patchValue({
+        cname: res.name,
+        mobile: res.mobile,
+        address: res.address,
+        city: res.city,
+        pincode: res.pincode,
       });
+    });
+
+    const navData = history.state.product || history.state.products;
+
+    if (navData) {
+      const arr = Array.isArray(navData) ? navData : [navData];
+
+      this.products = arr.map((item: any) => ({
+        pname: item.name,
+        price: item.offerPrice,
+        qty: 1,
+        pimg: item.image,
+        quantity: item.quantityUnit, // default stock
+      }));
+    }
+
+    if (!this.products || this.products.length === 0) {
+      console.warn('No products found for checkout');
+    }
   }
 
   // ✅ TOTAL CALCULATION
-getTotal() {
-  if (!Array.isArray(this.products)) return 0;
+  getTotal() {
+    if (!Array.isArray(this.products)) return 0;
 
-  return this.products.reduce((total, item) => {
-    return total + (item.price * item.qty);
-    // console.log("BUY PRODUCT:", this.cart.getBuyProduct());
-  }, 0);
-}
+    return this.products.reduce((total, item) => {
+      return total + item.price * item.qty;
+      // console.log("BUY PRODUCT:", this.cart.getBuyProduct());
+    }, 0);
+  }
 
   // ✅ ORDER SUBMIT (MULTIPLE PRODUCTS)
   onSubmit() {
-if (this.orderForm.invalid) {
-  this.orderForm.markAllAsTouched();
-  return;
-}
+    if (this.orderForm.invalid) {
+      this.orderForm.markAllAsTouched();
+      return;
+    }
 
     const formValue = this.orderForm.getRawValue();
 
-    const orderItems = this.products.map(item => ({
+    const orderItems = this.products.map((item) => ({
       product_id: item.product_id,
       pimg: item.pimg,
       pname: item.pname,
@@ -106,11 +128,11 @@ if (this.orderForm.invalid) {
       totalPrice: item.price * item.qty,
       farmerId: item.f_id,
       farmerName: item.farmerName,
-      farmerVillage: item.farmerVillage
+      farmerVillage: item.farmerVillage,
     }));
 
     const orderData = {
-      c_id: localStorage.getItem("consumerId"),
+      c_id: localStorage.getItem('consumerId'),
 
       cname: formValue.cname,
       mobile: formValue.mobile,
@@ -118,25 +140,22 @@ if (this.orderForm.invalid) {
       city: formValue.city,
       pincode: formValue.pincode,
 
-      items: orderItems,                // ✅ MULTIPLE PRODUCTS
-      totalAmount: this.getTotal(),     // ✅ TOTAL
+      items: orderItems, // ✅ MULTIPLE PRODUCTS
+      totalAmount: this.getTotal(), // ✅ TOTAL
 
-      paymentMethod: this.orderForm.value.paymentMethod
+      paymentMethod: this.orderForm.value.paymentMethod,
     };
 
-    this.http.post("http://localhost:3000/api/place-order", orderData)
-      .subscribe((res: any) => {
-
-        this.orderId = res.order_id;
-        // localStorage.setItem("city", res.place_order.city);/
-        if(res.place_order){
-  localStorage.setItem("city", res.place_order.city);
-}
-        this.showSuccessPopup = true;
-        console.log("API RESPONSE:", res);
-        this.cd.detectChanges();
-
-      });
+    this.http.post('http://localhost:3000/api/place-order', orderData).subscribe((res: any) => {
+      this.orderId = res.order_id;
+      // localStorage.setItem("city", res.place_order.city);/
+      if (res.place_order) {
+        localStorage.setItem('city', res.place_order.city);
+      }
+      this.showSuccessPopup = true;
+      // console.log("API RESPONSE:", res);
+      this.cd.detectChanges();
+    });
   }
 
   enableEdit() {
@@ -179,7 +198,6 @@ if (this.orderForm.invalid) {
   // ✅ UPI PAYMENT (TOTAL BASED)
   openUPI() {
     if (this.orderForm.value.paymentMethod === 'online') {
-
       const amount = this.getTotal();
 
       this.upiLink = `upi://pay?pa=surtiutsavi@oksbi&pn=OrganicRoot&am=${amount}&cu=INR`;
@@ -189,22 +207,20 @@ if (this.orderForm.invalid) {
     }
   }
 
- startTimer() 
- {
-  this.timeLeft = 60;
+  startTimer() {
+    this.timeLeft = 60;
 
-  this.timerInterval = setInterval(() => {
-    this.timeLeft--;
+    this.timerInterval = setInterval(() => {
+      this.timeLeft--;
 
-    this.cd.detectChanges();
+      this.cd.detectChanges();
 
-    // ✅ SUCCESS CONDITION
-    if (this.timeLeft <= 50) {
-      this.paymentSuccess();
-    }
-
-  }, 1000);
-}
+      // ✅ SUCCESS CONDITION
+      if (this.timeLeft <= 50) {
+        this.paymentSuccess();
+      }
+    }, 1000);
+  }
   get formattedTime() {
     const minutes = Math.floor(this.timeLeft / 60);
     const seconds = this.timeLeft % 60;
@@ -212,8 +228,7 @@ if (this.orderForm.invalid) {
     return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
   }
 
-  paymentSuccess() 
-  {
+  paymentSuccess() {
     clearInterval(this.timerInterval);
 
     this.showUPIPopup = false;
@@ -225,7 +240,6 @@ if (this.orderForm.invalid) {
       this.showPaymentSuccess = false;
       this.onSubmit();
     }, 4000);
-    
   }
 
   closeUPI() {
@@ -236,5 +250,4 @@ if (this.orderForm.invalid) {
     this.showUPIPopup = false;
     this.onSubmit();
   }
-
 }

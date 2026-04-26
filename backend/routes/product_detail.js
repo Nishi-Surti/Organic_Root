@@ -1,37 +1,36 @@
-const path = require("path"); 
-const express = require('express');
+const path = require("path");
+const express = require("express");
 const router = express.Router();
-const Product_Detail = require('../models/Product_Detail');
-const Farmer_Regis = require('../models/Farmer_Regis');
-const multer = require('multer');
+const Product_Detail = require("../models/Product_Detail");
+const Farmer_Regis = require("../models/Farmer_Regis");
+const multer = require("multer");
 const My_Products = require("../models/My_Products");
-
 
 // Storage config
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/add-product",upload.single('pimg'),async( req, res ) => {
-    try
-    {
-        const lastProduct = await Product_Detail.findOne().sort({ product_id: -1 });
-        
-                let newproduct_id = 1;
-        
-                if(lastProduct)
-                {
-                    newproduct_id = lastProduct.product_id + 1;
-                }
-            
-                // ✅ Farmer ID from frontend
+console.log("✅ product_detail route loaded");
+
+router.post("/add-product", upload.single("pimg"), async (req, res) => {
+  try {
+    const lastProduct = await Product_Detail.findOne().sort({ product_id: -1 });
+
+    let newproduct_id = 1;
+
+    if (lastProduct) {
+      newproduct_id = lastProduct.product_id + 1;
+    }
+
+    // ✅ Farmer ID from frontend
     const farmerId = Number(req.body.f_id);
 
     // ✅ Farmer find karo
@@ -44,66 +43,58 @@ router.post("/add-product",upload.single('pimg'),async( req, res ) => {
     // ✅ Image path
     const imagePath = req.file ? "/uploads/" + req.file.filename : "";
 
+    const newProduct = new Product_Detail({
+      f_id: farmer.f_id,
+      farmerName: farmer.name,
+      farmerVillage: farmer.village,
 
-        const newProduct = new Product_Detail({
+      product_id: newproduct_id,
+      category: req.body.category,
+      pname: req.body.pname,
+      price: req.body.price,
+      priceUnit: req.body.priceUnit,
+      quantity: req.body.quantity,
+      quantityUnit: req.body.quantityUnit,
+      pimg: imagePath,
+    });
 
-            f_id: farmer.f_id,
-            farmerName: farmer.name,
-            farmerVillage: farmer.village,
+    await newProduct.save();
 
-            product_id: newproduct_id,
-            category: req.body.category,
-            pname: req.body.pname,
-            price: req.body.price,
-            priceUnit: req.body.priceUnit,
-            quantity: req.body.quantity,
-            quantityUnit: req.body.quantityUnit,
-            pimg: imagePath,
+    console.log("✅ Product added successfully");
 
-        });
-
-        await newProduct.save();
-
-        res.status(200).json({
-            message: "Product added succesfully",
-            product : newProduct
-        });
-    }
-    catch(error)
-    {
-        console.log(error);
-        res.status(500).json({ message: "Server Error" });
-    }
+    (console.log("Product route loaded"),
+      res.status(200).json({
+        message: "Product added succesfully",
+        product: newProduct,
+      }));
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
-router.get("/my-products/:farmerId",async (req, res) =>{
-    try
-    {
-        const farmerId = Number(req.params.farmerId);
-        
-        const products = await Product_Detail.find({
-            f_id: farmerId
-        });
+router.get("/my-products/:farmerId", async (req, res) => {
+  try {
+    const farmerId = Number(req.params.farmerId);
 
-        res.json(products);
-    }
-    catch (err)
-    {
-        res.status(500).json({ message: err.message });
-    }
+    const products = await Product_Detail.find({
+      f_id: farmerId,
+    });
+
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
-router.get("/all-products",async(req, res) =>{
-    try
-    {
-        const products = await Product_Detail.find();
+router.get("/all-products", async (req, res) => {
+  try {
+    const products = await Product_Detail.find();
 
-        res.json(products);
-    }
-    catch (err)
-    {
-        res.status(500).json({ message: err.message });
-    }
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 router.delete("/delete-products/:productId", async (req, res) => {
@@ -117,39 +108,41 @@ router.delete("/delete-products/:productId", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-router.put("/update-product/:productId", upload.single("pimg"), async (req, res) => {
-  try {
+router.put(
+  "/update-product/:productId",
+  upload.single("pimg"),
+  async (req, res) => {
+    try {
+      const productId = Number(req.params.productId);
 
-    const productId = Number(req.params.productId);
+      const updateData = {
+        category: req.body.category,
+        pname: req.body.pname,
+        price: req.body.price,
+        priceUnit: req.body.priceUnit,
+        quantity: req.body.quantity,
+        quantityUnit: req.body.quantityUnit,
+      };
 
-    const updateData = {
-      category: req.body.category,
-      pname: req.body.pname,
-      price: req.body.price,
-      priceUnit: req.body.priceUnit,
-      quantity: req.body.quantity,
-      quantityUnit: req.body.quantityUnit
-    };
+      // Image change thay to update karo
+      if (req.file) {
+        updateData.pimg = "/uploads/" + req.file.filename;
+      }
 
-    // Image change thay to update karo
-    if (req.file) {
-      updateData.pimg = "/uploads/" + req.file.filename;
+      const updatedProduct = await Product_Detail.findOneAndUpdate(
+        { product_id: productId },
+        updateData,
+        { new: true },
+      );
+
+      res.json({
+        message: "Product Updated Successfully",
+        product: updatedProduct,
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
+  },
+);
 
-    const updatedProduct = await Product_Detail.findOneAndUpdate(
-      { product_id: productId },
-      updateData,
-      { new: true }
-    );
-
-    res.json({
-      message: "Product Updated Successfully",
-      product: updatedProduct
-    });
-
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-module.exports =router;
+module.exports = router;

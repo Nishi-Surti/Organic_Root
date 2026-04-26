@@ -1,24 +1,18 @@
 <div class="admin-user-container">
-
   <div class="filter-bar">
-
-<select [(ngModel)]="userType" (change)="onRoleChange()">
-  <option value="farmer">👨‍🌾 Farmers</option>
-  <option value="consumer">🧑 Consumers</option>
-</select>
-
-</div>
+    <select [(ngModel)]="userType" (change)="onRoleChange()">
+      <option value="farmer">👨‍🌾 Farmers</option>
+      <option value="consumer">🧑 Consumers</option>
+    </select>
+  </div>
 
   <div class="page-header">
-    <h2>
-  👥 {{ userType === 'farmer' ? 'Farmer Management' : 'Consumer Management' }}
-</h2>
+    <h2>👥 {{ userType === 'farmer' ? 'Farmer Management' : 'Consumer Management' }}</h2>
     <p>Manage all farmers and consumers</p>
   </div>
 
   <div class="table-wrapper">
     <table class="user-table">
-
       <thead>
         <tr>
           <th *ngIf="userType === 'farmer'">Profile</th>
@@ -31,49 +25,83 @@
       </thead>
 
       <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td *ngIf="userType === 'farmer'">
+            <img [src]="'http://localhost:3000/uploads/' + user.fimage" class="profile" />
+          </td>
 
-  <tr *ngFor="let user of users">
+          <!-- NAME -->
+          <td>
+            {{ user.farmerName || user.cname || user.name }}
+          </td>
 
-    <td *ngIf="userType === 'farmer'">
-      <img [src]="'http://localhost:3000/uploads/' + user.fimage"class="profile">
-    </td>
+          <!-- EMAIL -->
+          <td>
+            {{ user.mobile }}
+          </td>
 
-    <!-- NAME -->
-    <td>
-      {{ user.farmerName || user.cname || user.name }}
-    </td>
+          <!-- ROLE -->
+          <td class="role" [ngClass]="userType === 'farmer' ? 'farmer' : 'consumer'">
+            {{ userType === 'farmer' ? 'Farmer' : 'Consumer' }}
+          </td>
 
-    <!-- EMAIL -->
-    <td>
-      {{ user.mobile }}
-    </td>
+          <!-- STATUS -->
+         <td 
+  class="status"
+  [ngClass]="user.status === 'blocked' ? 'blocked' : 'active'">
+  {{ user.status === 'blocked' ? 'Blocked' : 'Active' }}
+</td>
 
-    <!-- ROLE -->
-    <td 
-      class="role"
-      [ngClass]="userType === 'farmer' ? 'farmer' : 'consumer'">
-      {{ userType === 'farmer' ? 'Farmer' : 'Consumer' }}
-    </td>
+          <!-- DATE -->
 
-    <!-- STATUS -->
-    <td class="status active">
-      Active
-    </td>
+          <!-- ACTION -->
+          <td>
+  <button class="block" (click)="openModal(user, 'block')">
+    {{ user.status === 'blocked' ? 'Unblock' : 'Block' }}
+  </button>
 
-    <!-- DATE -->
-    
-
-    <!-- ACTION -->
-    <td>
-      <button class="edit">Edit</button>
-      <button class="delete">Delete</button>
-    </td>
-
-  </tr>
-
-</tbody>
-
+  <button class="delete" (click)="openModal(user, 'delete')">
+    Delete
+  </button>
+</td>
+        </tr>
+      </tbody>
     </table>
   </div>
+  <div class="pagination">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">⬅ Prev</button>
 
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="changePage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      Next ➡
+    </button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-box">
+
+    <h3 *ngIf="actionType === 'block'">
+      {{ selectedUser?.status === 'blocked' ? 'Unblock User?' : 'Block User?' }}
+    </h3>
+
+    <h3 *ngIf="actionType === 'delete'">
+      Delete User?
+    </h3>
+
+    <p>Are you sure you want to continue?</p>
+
+    <div class="modal-actions">
+      <button class="confirm" (click)="confirmAction()">Yes</button>
+      <button class="cancel" (click)="closeModal()">Cancel</button>
+    </div>
+
+  </div>
 </div>

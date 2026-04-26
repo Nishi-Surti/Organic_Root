@@ -1,3 +1,6 @@
+/* =========================
+   MAIN CONTAINER
+========================= */
 .report-container {
   padding: 30px;
   background: #f5f7fb;
@@ -6,115 +9,163 @@
   box-sizing: border-box;
 }
 
+/* =========================
+   HEADER
+========================= */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
   margin-bottom: 25px;
+  gap: 15px;
 }
 
 .header h2 {
   margin: 0;
-  font-size: 30px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .header select {
-  padding: 8px 15px;
-  border-radius: 6px;
+  padding: 10px 15px;
+  border-radius: 8px;
   border: 1px solid #ddd;
   background: #fff;
   min-width: 180px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
+.header select:hover {
+  border-color: #4caf50;
+}
+
+/* =========================
+   GRID LAYOUT
+========================= */
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  /* 🔥 2 cards side by side */
   gap: 25px;
 }
 
+/* =========================
+   CHART CARD
+========================= */
 .chart-card {
-  background: white;
+  background: #ffffff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s ease;
 }
 
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+
+/* =========================
+   TITLE
+========================= */
 .chart-card h3 {
-  margin: 0 0 15px;
+  margin: 0 0 10px;
   text-align: center;
+  font-size: 18px;
+  font-weight: 600;
 }
 
+/* =========================
+   CANVAS (GRAPH SIZE FIX)
+========================= */
 .chart-card canvas {
   width: 100% !important;
-  max-width: 100%;
-  display: block;
+  height: 450px !important;
+  /* 🔥 perfect size */
 }
 
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 992px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+    /* 🔥 single column */
+  }
+
+  .chart-card {
+    height: auto;
+  }
+
+  .chart-card canvas {
+    height: 220px !important;
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 @media (max-width: 768px) {
+
   .report-container {
-    padding: 16px;
+    padding: 15px;
   }
 
   .header {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    margin-bottom: 18px;
   }
 
   .header h2 {
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
   }
 
   .header select {
     width: 100%;
-    margin-top: 15px;
-    box-sizing: border-box;
   }
 
   .charts-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 15px;
   }
 
   .chart-card {
-    padding: 16px;
-  }
-
-  .chart-card h3 {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .report-container {
-    padding: 12px;
-  }
-
-  .header {
-    gap: 10px;
-  }
-
-  .header h2 {
-    font-size: 20px;
-    line-height: 1.4;
-  }
-
-  .header select {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
-
-  .chart-card {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 15px;
   }
 
   .chart-card h3 {
     font-size: 16px;
-    margin-bottom: 10px;
+  }
+
+  .chart-card canvas {
+    height: 200px !important;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+
+  .report-container {
+    padding: 10px;
+  }
+
+  .header h2 {
+    font-size: 20px;
+  }
+
+  .chart-card {
+    padding: 12px;
+  }
+
+  .chart-card canvas {
+    height: 180px !important;
   }
 }

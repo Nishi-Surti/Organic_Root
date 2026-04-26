@@ -30,7 +30,7 @@ router.get('/approved-farmers', async (req, res) => {
 router.post('/register-farmer', upload.single("fimage"), async(req,res) =>{
     try
     {
-        console.log("BODY : ",req.body);
+      // console.log("BODY : ",req.body);
         const farmer = new Farmer({
             ...req.body,
             fimage: req.file ? req.file.filename: ""
@@ -38,7 +38,7 @@ router.post('/register-farmer', upload.single("fimage"), async(req,res) =>{
 
         const savedFarmer = await farmer.save();
 
-        console.log("SAVED : ",savedFarmer);
+        // console.log("SAVED : ",savedFarmer);
 
         res.status(200).json({
             message: "Farmer registered successfully"
