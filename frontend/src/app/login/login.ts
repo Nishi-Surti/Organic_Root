@@ -10,6 +10,8 @@ import { ConsumerLogin } from '../services/consumer-login';
 import { AdminLogin } from '../services/admin-login';
 import { email } from '@angular/forms/signals';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 // import { AddProduct } from '../add-product/add-product';
 
 
@@ -26,6 +28,10 @@ export class Login {
   
 selectedRole: string = ''; // default role
   loginForm!: FormGroup;
+  isForgotPasswordModalOpen = false;
+  forgotPasswordData = { identifier: '', newPassword: '', confirmPassword: '' };
+  showNew = false;
+  showConfirm = false;
  
 
   constructor(private fb: FormBuilder,
@@ -33,7 +39,9 @@ selectedRole: string = ''; // default role
     private farmerLogin: FarmerLogin,
     private consumerLogin: ConsumerLogin,
     private auth: Auth,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private http: HttpClient,
+    private crd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -146,6 +154,57 @@ selectedRole: string = ''; // default role
       });
   }
 
+}
+
+openForgotPasswordModal() {
+  if (!this.selectedRole) {
+    this.toastr.warning("Please select a role first (Farmer/Consumer/Admin)", "Warning");
+    return;
+  }
+  this.isForgotPasswordModalOpen = true;
+  this.forgotPasswordData = { identifier: '', newPassword: '', confirmPassword: '' };
+  this.showNew = false;
+  this.showConfirm = false;
+  this.crd.detectChanges();
+}
+
+closeForgotPasswordModal() {
+  this.isForgotPasswordModalOpen = false;
+  this.crd.detectChanges();
+}
+
+updateForgotPassword() {
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+  const { identifier, newPassword, confirmPassword } = this.forgotPasswordData;
+
+  if (!identifier) {
+    this.toastr.error(`Please enter your ${this.selectedRole === 'admin' ? 'email' : 'mobile number'}`);
+    return;
+  }
+  if (!passwordRegex.test(newPassword)) {
+    this.toastr.error("Password must contain at least 6 characters, including numbers and alphabets");
+    return;
+  }
+  if (newPassword !== confirmPassword) {
+    this.toastr.error("Passwords do not match");
+    return;
+  }
+
+  const payload = {
+    role: this.selectedRole,
+    identifier,
+    newPassword
+  };
+
+  this.http.post('http://localhost:3000/api/forgot-password', payload).subscribe({
+    next: (res: any) => {
+      this.toastr.success(res.message || "Password updated successfully");
+      this.closeForgotPasswordModal();
+    },
+    error: (err: any) => {
+      this.toastr.error(err.error?.message || "Failed to update password");
+    }
+  });
 }
 }
 

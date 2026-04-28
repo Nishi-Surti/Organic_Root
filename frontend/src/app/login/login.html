@@ -74,7 +74,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </form>
 
     <div class="extra-links">
-      <a routerLink="/forgot-password">Forgot Password?</a>
+      <a style="cursor: pointer;" (click)="openForgotPasswordModal()">Forgot Password?</a>
       <p>First time user?
         <a routerLink="/regis">Register Here</a>
       </p>
@@ -82,4 +82,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
   </div>
 
+</div>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal-overlay" *ngIf="isForgotPasswordModalOpen" (click)="closeForgotPasswordModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>🔒 Forgot Password</h3>
+      <button class="close-btn" (click)="closeForgotPasswordModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label *ngIf="selectedRole !== 'admin'">Mobile Number</label>
+        <label *ngIf="selectedRole === 'admin'">Email Address</label>
+        <input *ngIf="selectedRole !== 'admin'" type="text" [(ngModel)]="forgotPasswordData.identifier" placeholder="Enter registered mobile number">
+        <input *ngIf="selectedRole === 'admin'" type="email" [(ngModel)]="forgotPasswordData.identifier" placeholder="Enter registered email address">
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <div class="password-wrapper">
+          <input [type]="showNew ? 'text' : 'password'" [(ngModel)]="forgotPasswordData.newPassword" placeholder="Enter new password">
+          <span class="eye-icon" (click)="showNew = !showNew">
+            <svg *ngIf="showNew" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <svg *ngIf="!showNew" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Re-enter New Password</label>
+        <div class="password-wrapper">
+          <input [type]="showConfirm ? 'text' : 'password'" [(ngModel)]="forgotPasswordData.confirmPassword" placeholder="Re-enter new password">
+          <span class="eye-icon" (click)="showConfirm = !showConfirm">
+            <svg *ngIf="showConfirm" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <svg *ngIf="!showConfirm" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          </span>
+        </div>
+      </div>
+      <button class="update-btn" (click)="updateForgotPassword()">Update Password</button>
+    </div>
+  </div>
 </div>

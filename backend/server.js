@@ -69,6 +69,32 @@ app.post("/login", async (req, res) => {
   res.json({ message: "Saved successfully" });
 });
 
+app.post("/api/forgot-password", async (req, res) => {
+  try {
+    const { role, identifier, newPassword } = req.body;
+
+    if (role === "farmer") {
+      const farmer = await mongoose.connection.collection("farmer_details").findOne({ mobile: Number(identifier) });
+      if (!farmer) return res.status(404).json({ message: "Farmer not found with this mobile number" });
+      await mongoose.connection.collection("farmer_details").updateOne({ mobile: Number(identifier) }, { $set: { password: newPassword } });
+    } else if (role === "consumer") {
+      const consumer = await mongoose.connection.collection("consumer_detail").findOne({ mobile: Number(identifier) });
+      if (!consumer) return res.status(404).json({ message: "Consumer not found with this mobile number" });
+      await mongoose.connection.collection("consumer_detail").updateOne({ mobile: Number(identifier) }, { $set: { password: newPassword } });
+    } else if (role === "admin") {
+      const admin = await mongoose.connection.collection("admins").findOne({ email: identifier });
+      if (!admin) return res.status(404).json({ message: "Admin not found with this email" });
+      await mongoose.connection.collection("admins").updateOne({ email: identifier }, { $set: { password: newPassword } });
+    } else {
+      return res.status(400).json({ message: "Invalid role" });
+    }
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 app.listen(3000,()=>{
     console.log("Server running on port 3000")
 });
