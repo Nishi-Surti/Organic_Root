@@ -4,6 +4,7 @@ import { Product } from '../services/product';
 import { Router } from '@angular/router';
 import { CartPage } from '../services/cart-page';
 import { ToastrService } from 'ngx-toastr';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-green-vegitables',
@@ -18,7 +19,8 @@ export class GreenVegitables implements OnInit {
                 private cdr: ChangeDetectorRef,
                  private router: Router,
               private cart: CartPage,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private auth: Auth
   ){}
 
   gveg: any[]=[];
@@ -42,6 +44,11 @@ export class GreenVegitables implements OnInit {
 
   addToCart(product:any)
   {
+    if (!this.auth.isLoggedIn || this.auth.role !== 'Consumer') {
+      this.toastr.warning("Please login as a consumer to add to cart", "Warning");
+      this.router.navigate(['/login']);
+      return;
+    }
 
   this.cart.addToCart(product);
 
@@ -53,6 +60,11 @@ export class GreenVegitables implements OnInit {
 
  buyNow(g:any)
  {
+    if (!this.auth.isLoggedIn || this.auth.role !== 'Consumer') {
+      this.toastr.warning("Please login as a consumer to buy products", "Warning");
+      this.router.navigate(['/login']);
+      return;
+    }
 
   const product = {
     ...g,

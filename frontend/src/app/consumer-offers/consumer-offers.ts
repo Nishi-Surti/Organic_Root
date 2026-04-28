@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-consumer-offers',
@@ -14,7 +16,9 @@ export class ConsumerOffers{
   constructor(
     private http: HttpClient,
     private cd: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private auth: Auth,
+    private toastr: ToastrService
   ) {}
 
   offers = [
@@ -35,6 +39,12 @@ export class ConsumerOffers{
 ];
 
 buyNow(product: any) {
+    if (!this.auth.isLoggedIn || this.auth.role !== 'Consumer') {
+      this.toastr.warning("Please login as a consumer to buy products", "Warning");
+      this.router.navigate(['/login']);
+      return;
+    }
+
   // Direct order logic
   console.log("Buying:", product);
 

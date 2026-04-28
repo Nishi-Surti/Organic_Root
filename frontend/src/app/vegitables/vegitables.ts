@@ -4,6 +4,7 @@ import { Product } from '../services/product';
 import { CartPage } from '../services/cart-page';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-vegitables',
@@ -18,7 +19,8 @@ constructor (private product: Product,
               private cdr: ChangeDetectorRef,
               private cart: CartPage,
               private router: Router,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private auth: Auth
 ){}
 
 vegetables:any[]=[];
@@ -47,6 +49,11 @@ loadProducts()
 }
 addToCart(product:any)
 {
+    if (!this.auth.isLoggedIn || this.auth.role !== 'Consumer') {
+      this.toastr.warning("Please login as a consumer to add to cart", "Warning");
+      this.router.navigate(['/login']);
+      return;
+    }
 
   this.cart.addToCart(product);
 
@@ -58,6 +65,11 @@ addToCart(product:any)
 
 buyNow(v:any)
 {
+    if (!this.auth.isLoggedIn || this.auth.role !== 'Consumer') {
+      this.toastr.warning("Please login as a consumer to buy products", "Warning");
+      this.router.navigate(['/login']);
+      return;
+    }
 
   const product = {
     ...v,
