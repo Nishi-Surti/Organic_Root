@@ -15,6 +15,10 @@ mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
+app.get("/", (req, res) => {
+    res.send("Organic Root API Running Successfully");
+});
+
 // const farmerRoutes = require("./routes/farmer");
 // app.use("/api",farmerRoutes);
 const productRoutes = require("./routes/product")
