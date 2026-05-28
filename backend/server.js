@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads",express.static("uploads"));
 
-mongoose.connect("mongodb+srv://admin:admin123@organic-root.xvas9aq.mongodb.net/organic-root")
+mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
@@ -95,6 +97,8 @@ app.post("/api/forgot-password", async (req, res) => {
   }
 });
 
-app.listen(3000,()=>{
-    console.log("Server running on port 3000")
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
