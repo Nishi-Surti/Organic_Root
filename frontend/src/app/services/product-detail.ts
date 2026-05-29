@@ -9,25 +9,25 @@ export class ProductDetail {
 
   getMyProducts(f_id: any)
   {
-    return this.http.get(`http://localhost:3000/api/productDetail/my-products/${f_id}`);
+    return this.http.get(`https://organic-root-api.onrender.com/api/productDetail/my-products/${f_id}`);
   }
 
   getAllProducts()
   {
-    return this.http.get(`http://localhost:3000/api/productDetail/all-products`);
+    return this.http.get(`https://organic-root-api.onrender.com/api/productDetail/all-products`);
   }
 
   deleteProduct(product_id:any)
 {
   return this.http.delete(
-    `http://localhost:3000/api/productDetail/delete-products/${product_id}`
+    `https://organic-root-api.onrender.com/api/productDetail/delete-products/${product_id}`
   );
 }
 
 updateProduct(productId:any, formData:any)
 {
   return this.http.put(
-    `http://localhost:3000/api/productDetail/update-product/${productId}`,
+    `https://organic-root-api.onrender.com/api/productDetail/update-product/${productId}`,
     formData
   );
 }

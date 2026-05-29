@@ -25,7 +25,7 @@ logout() {
   localStorage.removeItem('role'); 
 }
 
-    api = "http://localhost:3000/admin";
+    api = "https://organic-root-api.onrender.com/admin";
 
     constructor(private http: HttpClient, private router: Router)
     {
@@ -41,16 +41,16 @@ logout() {
 
     loginAdmin(data: any)
     {
-        return this.http.post("http://localhost:3000/admin/admin-login", data);
+        return this.http.post("https://organic-root-api.onrender.com/admin/admin-login", data);
     }
 
     loginFarmer(data: any)
     {
-      return this.http.post("http://localhost:3000/api/login-farmer",data);
+      return this.http.post("https://organic-root-api.onrender.com/api/login-farmer",data);
     }
     
     registerFarmer(data: any) 
     {
-      return this.http.post('http://localhost:3000/api/regis', data);
+      return this.http.post('https://organic-root-api.onrender.com/api/regis', data);
     }
 }

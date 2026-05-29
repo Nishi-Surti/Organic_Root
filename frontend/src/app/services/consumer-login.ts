@@ -10,6 +10,6 @@ export class ConsumerLogin {
   
   consumerLogin(data: any)
   {
-    return this.http.post('http://localhost:3000/api/consumer-login',data)
+    return this.http.post('https://organic-root-api.onrender.com/api/consumer-login',data)
   }
 }

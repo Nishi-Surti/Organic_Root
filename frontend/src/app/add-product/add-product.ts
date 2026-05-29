@@ -126,7 +126,7 @@ export class AddProduct {
 
     formData.append('pimg', this.selectedImage);
 
-    this.http.post('http://localhost:3000/api/productDetail/add-product', formData).subscribe({
+    this.http.post('https://organic-root-api.onrender.com/api/productDetail/add-product', formData).subscribe({
       next: (res) => {
         alert('Product Add Successfully');
         // ✅ success message UI thi batavvu hoy to

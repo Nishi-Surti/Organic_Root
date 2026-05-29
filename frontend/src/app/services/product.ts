@@ -11,7 +11,7 @@ export class Product {
    getProduct(category:string)
    {
       return this.http
-      .get<any[]>(`http://localhost:3000/api/product/category/${category}`)
+      .get<any[]>(`https://organic-root-api.onrender.com/api/product/category/${category}`)
       .pipe(shareReplay(1));   // ⚡ cache data
     }
 

@@ -9,6 +9,6 @@ export class AdminDashboardServices {
 
   getDashboardData()
   {
-    return this.http.get("http://localhost:3000/admin/dashboard");
+    return this.http.get("https://organic-root-api.onrender.com/admin/dashboard");
   }
 }

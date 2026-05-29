@@ -32,7 +32,7 @@ export class FarmerEarning implements OnInit {
 ngOnInit() {
   const farmerId = localStorage.getItem("farmerId");
 
-  this.http.get(`http://localhost:3000/api/farmer-earnings/${farmerId}`)
+  this.http.get(`https://organic-root-api.onrender.com/api/farmer-earnings/${farmerId}`)
     .subscribe((res: any) => {
 
       console.log("EARNING API:", res);

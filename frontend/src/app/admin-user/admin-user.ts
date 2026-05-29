@@ -63,7 +63,7 @@ export class AdminUser implements OnInit {
 
     if (this.userType === 'farmer') {
       // console.log("Calling Farmer API");
-      this.http.get('http://localhost:3000/admin/farmers').subscribe((res: any) => {
+      this.http.get('https://organic-root-api.onrender.com/admin/farmers').subscribe((res: any) => {
         // console.log("Farmer Data:", res);
         this.users = res;
         this.currentPage = 1;
@@ -72,7 +72,7 @@ export class AdminUser implements OnInit {
       });
     } else {
       // console.log("Calling Consumer API");
-      this.http.get('http://localhost:3000/admin/consumers').subscribe((res: any) => {
+      this.http.get('https://organic-root-api.onrender.com/admin/consumers').subscribe((res: any) => {
         // console.log('Consumer Data:', res);
         this.users = res;
 
@@ -97,7 +97,7 @@ export class AdminUser implements OnInit {
     const newStatus = user.status === 'blocked' ? 'active' : 'blocked';
 
     this.http
-      .put(`http://localhost:3000/admin/block-user/${user._id}`, { status: newStatus })
+      .put(`https://organic-root-api.onrender.com/admin/block-user/${user._id}`, { status: newStatus })
       .subscribe(() => {
         user.status = newStatus; // 🔥 UI update
         this.updatePagination();
@@ -106,7 +106,7 @@ export class AdminUser implements OnInit {
   }
 
   getTotalUsers() {
-    this.http.get('http://localhost:3000/admin/total-users').subscribe((res: any) => {
+    this.http.get('https://organic-root-api.onrender.com/admin/total-users').subscribe((res: any) => {
       this.totalUsers = res.totalUsers;
     });
   }
@@ -137,7 +137,7 @@ export class AdminUser implements OnInit {
   }
 
   deleteUser(id: string) {
-    this.http.delete(`http://localhost:3000/admin/delete-user/${id}`).subscribe(() => {
+    this.http.delete(`https://organic-root-api.onrender.com/admin/delete-user/${id}`).subscribe(() => {
       this.users = this.users.filter((u) => u._id !== id);
       this.updatePagination?.(); // jo pagination hoy to
     });

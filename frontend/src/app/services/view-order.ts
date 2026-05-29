@@ -9,15 +9,15 @@ export class ViewOrder {
   constructor(private http:HttpClient){}
 
 getConsumerOrders(c_id:any){
-return this.http.get(`http://localhost:3000/api/consumer-orders/${c_id}`);
+return this.http.get(`https://organic-root-api.onrender.com/api/consumer-orders/${c_id}`);
 }
 
 cancelOrder(orderId:number){
-  return this.http.put(`http://localhost:3000/api/cancel-order/${orderId}`, {});
+  return this.http.put(`https://organic-root-api.onrender.com/api/cancel-order/${orderId}`, {});
 }
 
 deleteOrder(orderId:number){
-  return this.http.delete(`http://localhost:3000/api/delete-order/${orderId}`);
+  return this.http.delete(`https://organic-root-api.onrender.com/api/delete-order/${orderId}`);
 }
 
 }

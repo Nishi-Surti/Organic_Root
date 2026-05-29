@@ -8,15 +8,15 @@ export class Farmer {
   constructor(private http: HttpClient){}
 
  getPendingFarmers() {
-  return this.http.get('http://localhost:3000/api/pending-farmers');
+  return this.http.get('https://organic-root-api.onrender.com/api/pending-farmers');
 }
 
 approveFarmer(f_id:any) {
-  return this.http.put(`http://localhost:3000/api/approve-farmer/${f_id}`, {});
+  return this.http.put(`https://organic-root-api.onrender.com/api/approve-farmer/${f_id}`, {});
 }
 
 rejectFarmer(f_id:any) {
-  return this.http.put(`http://localhost:3000/api/reject-farmer/${f_id}`, {});
+  return this.http.put(`https://organic-root-api.onrender.com/api/reject-farmer/${f_id}`, {});
 }
 
 }

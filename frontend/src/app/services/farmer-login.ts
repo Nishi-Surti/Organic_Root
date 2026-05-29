@@ -9,6 +9,6 @@ export class FarmerLogin {
   
   farmerLogin(data: any)
   {
-    return this.http.post('http://localhost:3000/api/farmer-login', data);
+    return this.http.post('https://organic-root-api.onrender.com/api/farmer-login', data);
   }
 }

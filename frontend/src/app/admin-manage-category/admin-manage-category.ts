@@ -49,7 +49,7 @@ this.cdr.detectChanges();
   };
 
   this.http.post(
-  "http://localhost:3000/api/adminManageCategory/admin-manage-category",
+  "https://organic-root-api.onrender.com/api/adminManageCategory/admin-manage-category",
   data
   ).subscribe(res =>{
     alert('Category Add Successfully');

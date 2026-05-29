@@ -71,7 +71,7 @@ export class Checkout {
 
     const c_id = localStorage.getItem('consumerId');
 
-    this.http.get(`http://localhost:3000/api/consumer/${c_id}`).subscribe((res: any) => {
+    this.http.get(`https://organic-root-api.onrender.com/api/consumer/${c_id}`).subscribe((res: any) => {
       this.orderForm.patchValue({
         cname: res.name,
         mobile: res.mobile,
@@ -146,7 +146,7 @@ export class Checkout {
       paymentMethod: this.orderForm.value.paymentMethod,
     };
 
-    this.http.post('http://localhost:3000/api/place-order', orderData).subscribe((res: any) => {
+    this.http.post('https://organic-root-api.onrender.com/api/place-order', orderData).subscribe((res: any) => {
       this.orderId = res.order_id;
       // localStorage.setItem("city", res.place_order.city);/
       if (res.place_order) {

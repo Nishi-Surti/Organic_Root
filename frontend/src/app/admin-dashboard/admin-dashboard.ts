@@ -77,11 +77,11 @@ export class AdminDashboard implements OnInit {
     let consumerCount = 0;
 
     // 👨‍🌾 Farmers
-    this.http.get('http://localhost:3000/admin/farmers').subscribe((res: any) => {
+    this.http.get('https://organic-root-api.onrender.com/admin/farmers').subscribe((res: any) => {
       farmerCount = res.length || 0;
 
       // 🧑 Consumers
-      this.http.get('http://localhost:3000/admin/consumers').subscribe((res2: any) => {
+      this.http.get('https://organic-root-api.onrender.com/admin/consumers').subscribe((res2: any) => {
         consumerCount = res2.length || 0;
 
         // ✅ TOTAL USERS
@@ -95,7 +95,7 @@ export class AdminDashboard implements OnInit {
   }
 
   fetchAllOrders() {
-    this.http.get('http://localhost:3000/admin/allOrders').subscribe({
+    this.http.get('https://organic-root-api.onrender.com/admin/allOrders').subscribe({
       next: (res: any) => {
         // console.log("ALL ORDERS:", res);
 

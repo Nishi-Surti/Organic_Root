@@ -31,7 +31,7 @@ export class FarmerOrderTrack {
   ngOnInit() {
     const farmerId = localStorage.getItem('farmerId');
 
-    this.http.get(`http://localhost:3000/api/farmer-orders/${farmerId}`).subscribe((res: any) => {
+    this.http.get(`https://organic-root-api.onrender.com/api/farmer-orders/${farmerId}`).subscribe((res: any) => {
       console.log('Farmer Orders:', res);
 
       // 🔥 IMPORTANT mapping (backend → UI)
@@ -43,7 +43,7 @@ export class FarmerOrderTrack {
         price: '₹' + ' ' + o.totalPrice + ' / ' + o.priceUnit,
         date: new Date(o.orderDate).toLocaleDateString(),
         status: o.orderStatus, // future dynamic
-        image: 'http://localhost:3000' + o.pimg,
+        image: 'https://organic-root-api.onrender.com' + o.pimg,
       }));
 
       this.filteredOrders = [...this.orders];
@@ -116,7 +116,7 @@ export class FarmerOrderTrack {
   const newStatus = event.target.value;
   if (!newStatus) return;
 
-  this.http.put(`http://localhost:3000/api/update-order-status/${orderId}`, {
+  this.http.put(`https://organic-root-api.onrender.com/api/update-order-status/${orderId}`, {
     status: newStatus
   }).subscribe({
     next: () => {

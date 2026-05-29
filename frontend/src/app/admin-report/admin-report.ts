@@ -31,7 +31,7 @@ destroyCharts() {
 }
 
   fetchReportData() {
-    this.http.get('http://localhost:3000/admin/report-data').subscribe((res: any) => {
+    this.http.get('https://organic-root-api.onrender.com/admin/report-data').subscribe((res: any) => {
       this.reportData = res;
       this.loadFarmerCharts();
     });

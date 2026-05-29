@@ -30,7 +30,7 @@ export class Contact {
       return;
     }
 
-    this.http.post('http://localhost:3000/api/contact', this.contactForm.value).subscribe({
+    this.http.post('https://organic-root-api.onrender.com/api/contact', this.contactForm.value).subscribe({
       next: (res: any) => {
         this.showToast('Message sent successfully! 🚀', 'success');
         this.contactForm.reset();

@@ -32,14 +32,14 @@ constructor( private http: HttpClient, private router: Router, private crd: Chan
 ngOnInit(){
   const c_id = localStorage.getItem("consumerId");
 
-  this.http.get(`http://localhost:3000/api/consumer/${c_id}`)
+  this.http.get(`https://organic-root-api.onrender.com/api/consumer/${c_id}`)
   .subscribe((res:any)=>{
     this.consumer = res;
     this.crd.detectChanges();
   });
 
   // orders count
-  this.http.get(`http://localhost:3000/api/consumer-orders/${c_id}`)
+  this.http.get(`https://organic-root-api.onrender.com/api/consumer-orders/${c_id}`)
   .subscribe((res:any)=>{
     this.totalOrders = res.length;
     this.crd.detectChanges();
@@ -65,7 +65,7 @@ toggleEdit(){
 
   if(!this.isEdit){
     // save API
-    this.http.put(`http://localhost:3000/api/update-consumer`, this.consumer)
+    this.http.put(`https://organic-root-api.onrender.com/api/update-consumer`, this.consumer)
     .subscribe(()=>{
       alert("Profile updated");
     });
@@ -108,7 +108,7 @@ updatePassword() {
     newPassword
   };
 
-  this.http.put('http://localhost:3000/api/update-consumer-password', payload).subscribe({
+  this.http.put('https://organic-root-api.onrender.com/api/update-consumer-password', payload).subscribe({
     next: (res: any) => {
       this.toastr.success(res.message || "Password updated successfully");
       this.closePasswordModal();

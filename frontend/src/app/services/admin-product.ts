@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class Adminproduct {
-  private apiUrl = 'http://localhost:3000/api/adminProduct/products';
+  private apiUrl = 'https://organic-root-api.onrender.com/api/adminProduct/products';
 
   constructor(private http: HttpClient) {}
 

@@ -63,7 +63,7 @@ export const routes: Routes = [
     {path: 'contact', component: Contact},
     {path: 'footer', component: Footer},
 
-    {path:'admin',component: AdminLayout,
+    {path:'admin',component: AdminLayout, canActivate: [AuthGuard],
         children: [
                 { path: '', redirectTo: 'admin-dashboard', pathMatch: 'full' },
                 {path: 'admin-dashboard', component: AdminDashboard},
@@ -76,7 +76,7 @@ export const routes: Routes = [
                 {path: 'admin-queries', component: AdminQueriesComponent}
         ]
     },
-    {path: 'farmers', component: FarmerLayout,
+    {path: 'farmers', component: FarmerLayout, canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'farmer-dashboard', pathMatch: 'full' },
             {path: 'farmer-dashboard', component: FarmerDashboard},
@@ -87,7 +87,7 @@ export const routes: Routes = [
         ]
     },
 
-    {path: 'consumer', component: ConsumerLayout,
+    {path: 'consumer', component: ConsumerLayout, canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'consumer-dashboard', pathMatch: 'full' },
             {path: 'consumer-dashboard', component: ConsumerDashboard},

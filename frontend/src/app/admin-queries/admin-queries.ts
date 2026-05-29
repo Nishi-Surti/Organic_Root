@@ -23,7 +23,7 @@ export class AdminQueriesComponent implements OnInit {
   }
 
   fetchQueries(): void {
-    this.http.get('http://localhost:3000/api/queries').subscribe({
+    this.http.get('https://organic-root-api.onrender.com/api/queries').subscribe({
       next: (res: any) => {
         this.queries = res;
         this.cd.detectChanges();
@@ -42,7 +42,7 @@ export class AdminQueriesComponent implements OnInit {
       return;
     }
 
-    this.http.put(`http://localhost:3000/api/queries/reply/${queryId}`, { reply }).subscribe({
+    this.http.put(`https://organic-root-api.onrender.com/api/queries/reply/${queryId}`, { reply }).subscribe({
       next: (res: any) => {
         this.showToast('Reply submitted successfully!', 'success');
         this.fetchQueries();

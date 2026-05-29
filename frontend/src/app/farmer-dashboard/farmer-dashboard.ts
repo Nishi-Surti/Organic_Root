@@ -46,7 +46,7 @@ export class FarmerDashboard implements OnInit {
   fetchRecentOrders() 
   {
     const farmerId = localStorage.getItem('farmerId');
-    this.http.get(`http://localhost:3000/api/recent-orders/${farmerId}`).subscribe({
+    this.http.get(`https://organic-root-api.onrender.com/api/recent-orders/${farmerId}`).subscribe({
       next: (res: any) => {
         console.log('RECENT ORDERS:', res); // 🔥 DEBUG
 

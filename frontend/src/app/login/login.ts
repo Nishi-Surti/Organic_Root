@@ -196,7 +196,7 @@ updateForgotPassword() {
     newPassword
   };
 
-  this.http.post('http://localhost:3000/api/forgot-password', payload).subscribe({
+  this.http.post('https://organic-root-api.onrender.com/api/forgot-password', payload).subscribe({
     next: (res: any) => {
       this.toastr.success(res.message || "Password updated successfully");
       this.closeForgotPasswordModal();

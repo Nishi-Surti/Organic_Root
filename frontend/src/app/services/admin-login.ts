@@ -10,32 +10,32 @@ export class AdminLogin {
 
   adminLogin(data : any)
   {
-      return this.http.post('http://localhost:3000/admin-login',data);
+      return this.http.post('https://organic-root-api.onrender.com/admin-login',data);
   }
 
   getTotalFarmers()
   {
-    return this.http.get<any>("http://localhost:3000/admin/totalFarmers");
+    return this.http.get<any>("https://organic-root-api.onrender.com/admin/totalFarmers");
   }
 
   getTotalProducts()
   {
-    return this.http.get<any>("http://localhost:3000/admin/totalProducts");
+    return this.http.get<any>("https://organic-root-api.onrender.com/admin/totalProducts");
   }
 
   getTotalOrders()
   {
-    return this.http.get<any>("http://localhost:3000/admin/totalOrders");
+    return this.http.get<any>("https://organic-root-api.onrender.com/admin/totalOrders");
   }
 
   getTotalEarnings()
   {
-    return this.http.get<any>("http://localhost:3000/admin/adminOrders");
+    return this.http.get<any>("https://organic-root-api.onrender.com/admin/adminOrders");
   }
 
   getTotalUser()
   {
-    return this.http.get<any>("http://localhost:3000/admin/total-users");
+    return this.http.get<any>("https://organic-root-api.onrender.com/admin/total-users");
   }
 
 }

@@ -48,7 +48,7 @@ export class AdminOrder implements OnInit {
 
   fetchAllOrders() 
   {
-  this.http.get("http://localhost:3000/admin/allOrders")
+  this.http.get("https://organic-root-api.onrender.com/admin/allOrders")
     .subscribe({
       next: (res: any) => {
 
