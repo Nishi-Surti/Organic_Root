@@ -4,14 +4,15 @@ const router = express.Router();
 const Farmer = require('../models/Farmer');
 const multer = require("multer");
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname,"../uploads"));
-    },
+const cloudinary = require("../cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + "_" + file.originalname);
-    }
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "farmers",
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+  },
 });
 
 const upload = multer({ storage: storage });
@@ -33,7 +34,7 @@ router.post('/register-farmer', upload.single("fimage"), async(req,res) =>{
       // console.log("BODY : ",req.body);
         const farmer = new Farmer({
             ...req.body,
-            fimage: req.file ? req.file.filename: ""
+            fimage: req.file ? req.file.path: ""
         });
 
         const savedFarmer = await farmer.save();

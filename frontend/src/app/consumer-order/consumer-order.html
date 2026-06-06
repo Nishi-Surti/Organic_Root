@@ -5,7 +5,7 @@
   <!-- ✅ ALWAYS VISIBLE TOP CARD -->
   <div class="order-summary-box" (click)="toggleOrder(i)">
 
-    <img [src]="'http://localhost:3000' + order.pimg" class="order-img">
+    <img [src]="order.pimg.startsWith('http') ? order.pimg : 'https://organic-root-api.onrender.com' + order.pimg" class="order-img">
 
     <div class="order-info">
       <h4>OrderId : {{order.order_id}}</h4>

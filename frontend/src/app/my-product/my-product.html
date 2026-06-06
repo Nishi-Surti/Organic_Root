@@ -22,7 +22,7 @@
   <!-- Product Cards -->
   <div class="card-container">
     <div class="product-card" *ngFor="let product of paginatedProducts">
-      <img [src]="'http://localhost:3000' + product.pimg" />
+      <img [src]="product.pimg.startsWith('http') ? product.pimg : 'https://organic-root-api.onrender.com' + product.pimg" />
 
       <h3>{{ product.pname }}</h3>
 

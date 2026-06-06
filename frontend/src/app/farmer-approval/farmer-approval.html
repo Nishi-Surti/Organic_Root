@@ -12,7 +12,7 @@
   <div class="pen-grid">
     <div class="pen-card" *ngFor="let farmer of pendingFarmers">
       <img 
-        [src]="'http://localhost:3000/uploads/' + farmer.fimage"
+        [src]="farmer.fimage.startsWith('http') ? farmer.fimage : 'https://organic-root-api.onrender.com/uploads/' + farmer.fimage"
       />
       <h3>Name : {{farmer.name}}</h3>
       <p>Mobile No. :{{farmer.mobile}}</p>

@@ -21,7 +21,7 @@
     <div class="gveg-card" *ngFor="let g of gveg">
 
       <div class="img-box">
-        <img [src]="'http://localhost:3000' + g.pimg">
+        <img [src]="g.pimg.startsWith('http') ? g.pimg : 'https://organic-root-api.onrender.com' + g.pimg">
       </div>
 
       <div class="gveg-info">

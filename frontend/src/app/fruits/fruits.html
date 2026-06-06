@@ -21,7 +21,7 @@
     <div class="frt-card" *ngFor="let f of fruits">
 
       <div class="img-box">
-        <img [src]="'http://localhost:3000' + f.pimg">
+        <img [src]="f.pimg.startsWith('http') ? f.pimg : 'https://organic-root-api.onrender.com' + f.pimg">
       </div>
 
       <div class="frt-info">

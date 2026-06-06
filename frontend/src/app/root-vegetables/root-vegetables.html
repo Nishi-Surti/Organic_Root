@@ -21,7 +21,7 @@
     <div class="rt-veg-card" *ngFor="let rt of rtveg">
 
       <div class="img-box">
-        <img [src]="'http://localhost:3000' + rt.pimg">
+        <img [src]="rt.pimg.startsWith('http') ? rt.pimg : 'https://organic-root-api.onrender.com' + rt.pimg">
       </div>
 
       <div class="rt-veg-info">

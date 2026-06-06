@@ -27,7 +27,7 @@
       <tbody>
         <tr *ngFor="let user of paginatedUsers">
           <td *ngIf="userType === 'farmer'">
-            <img [src]="'http://localhost:3000/uploads/' + user.fimage" class="profile" />
+            <img [src]="user.fimage ? (user.fimage.startsWith('http') ? user.fimage : 'https://organic-root-api.onrender.com/uploads/' + user.fimage) : 'assets/default-user.png'" class="profile" />
           </td>
 
           <!-- NAME -->

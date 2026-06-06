@@ -6,13 +6,15 @@ const Farmer_Regis = require("../models/Farmer_Regis");
 const multer = require("multer");
 const My_Products = require("../models/My_Products");
 
-// Storage config
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+const cloudinary = require("../cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// Cloudinary Storage config
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "products", // Folder name in Cloudinary
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
   },
 });
 
@@ -40,8 +42,8 @@ router.post("/add-product", upload.single("pimg"), async (req, res) => {
       return res.status(404).json({ message: "Farmer Not Found" });
     }
 
-    // ✅ Image path
-    const imagePath = req.file ? "/uploads/" + req.file.filename : "";
+    // ✅ Cloudinary Image URL
+    const imagePath = req.file ? req.file.path : "";
 
     const newProduct = new Product_Detail({
       f_id: farmer.f_id,
@@ -126,7 +128,7 @@ router.put(
 
       // Image change thay to update karo
       if (req.file) {
-        updateData.pimg = "/uploads/" + req.file.filename;
+        updateData.pimg = req.file.path;
       }
 
       const updatedProduct = await Product_Detail.findOneAndUpdate(

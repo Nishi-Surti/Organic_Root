@@ -22,7 +22,7 @@
     <div class="veg-card" *ngFor="let v of vegetables">
 
       <div class="img-box">
-        <img [src]="'http://localhost:3000' + v.pimg">
+        <img [src]="v.pimg.startsWith('http') ? v.pimg : 'https://organic-root-api.onrender.com' + v.pimg">
       </div>
 
       <div class="veg-info">
